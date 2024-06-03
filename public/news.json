@@ -1,0 +1,83 @@
+[
+    {
+      "title": "Apple Unveils New iPhone 13 with Enhanced Camera Features",
+      "image": "https://i.ibb.co/Z1s0g6b/Apple-Unveils-New.jpg",
+      "publisher": "publisher1",
+      "description": "Apple has announced the launch of its latest flagship smartphone, the iPhone 13. The new device comes with a range of enhancements, including improved camera features such as enhanced night mode, cinematic video recording, and improved image stabilization. The iPhone 13 is expected to be available in stores next month.",
+      "premium": "yes",
+      "view-count": 8
+    },
+    {
+      "title": "Stock Market Surges to Record High",
+      "image": "https://i.ibb.co/sym8vwb/Stock-market.jpg",
+      "publisher": "publisher2",
+      "description": "The stock market rallied to record highs today, with the S&P 500 reaching a new all-time high. Investors are optimistic about the economic recovery and corporate earnings, driving stocks higher across the board. Technology and healthcare stocks led the gains, while energy and financials also saw strong performance.",
+      "premium": "no",
+      "view-count": 10
+    },
+    {
+      "title": "New Study Reveals Health Benefits of Green Tea",
+      "image": "https://i.ibb.co/f14Q4Dd/Health-Benefits-of-Green-Tea.jpg",
+      "publisher": "publisher1",
+      "description": "A new study published in the Journal of Nutrition suggests that drinking green tea may have numerous health benefits. Researchers found that regular consumption of green tea is associated with a reduced risk of heart disease, cancer, and stroke. These findings add to existing evidence supporting the health benefits of green tea.",
+      "premium": "yes",
+      "view-count": 6
+    },
+    {
+      "title": "SpaceX Successfully Launches Crewed Mission to International Space Station",
+      "image": "https://i.ibb.co/xMygZ13/Space-X-launches.jpg",
+      "publisher": "publisher2",
+      "description": "SpaceX has successfully launched its Crew Dragon spacecraft with four astronauts onboard to the International Space Station (ISS). The mission, named Crew-3, marks SpaceX's fourth crewed flight to the ISS as part of NASA's Commercial Crew Program. The astronauts will spend six months conducting scientific research and performing maintenance tasks on the space station.",
+      "premium": "no",
+      "view-count": 9
+    },
+    {
+      "title": "New Documentary Explores Climate Change Effects",
+      "image": "https://i.ibb.co/f14Q4Dd/Health-Benefits-of-Green-Tea.jpg",
+      "publisher": "publisher1",
+      "description": "A new documentary film titled 'Changing Climate' examines the effects of climate change on ecosystems and communities around the world. The film features interviews with scientists, activists, and policymakers discussing the impacts of rising temperatures, extreme weather events, and sea level rise. 'Changing Climate' aims to raise awareness and inspire action on climate change.",
+      "premium": "yes",
+      "view-count": 7
+    },
+    {
+      "title": "World Leaders Gather for Global Summit",
+      "image": "https://i.ibb.co/bLBBL45/World-Leaders-Gather-for-Global-Summit.jpg",
+      "publisher": "publisher2",
+      "description": "Leaders from around the world are meeting in New York City for the annual United Nations General Assembly. The summit brings together heads of state and government to address pressing global issues, including climate change, conflict resolution, and public health. This year's summit is particularly significant as countries seek to coordinate their response to the COVID-19 pandemic and its economic repercussions.",
+      "premium": "no",
+      "view-count": 5
+    },
+    {
+      "title": "Artificial Intelligence Revolutionizing Healthcare",
+      "image": "https://i.ibb.co/NLVSSVZ/Artificial-Intelligence-Revolutionizing-Healthcare.jpg",
+      "publisher": "publisher1",
+      "description": "Advancements in artificial intelligence (AI) are transforming the healthcare industry, with AI-powered technologies improving diagnosis, treatment, and patient care. From predictive analytics to robotic surgery, AI is revolutionizing how healthcare is delivered and managed. As AI continues to evolve, it has the potential to address some of the biggest challenges facing healthcare systems worldwide.",
+      "premium": "yes",
+      "view-count": 4
+    },
+    {
+      "title": "New Musical Album Tops Billboard Charts",
+      "image": "https://i.ibb.co/M9Q7w9x/New-Musical-Album.jpg",
+      "publisher": "publisher2",
+      "description": "The latest album from pop sensation 'The Starlights' has debuted at number one on the Billboard charts. The album, titled 'Stardust,' features a mix of catchy pop anthems and heartfelt ballads that have resonated with fans around the world. With its chart-topping success, 'Stardust' solidifies 'The Starlights' as one of the biggest acts in music today.",
+      "premium": "no",
+      "view-count": 3
+    },
+    {
+      "title": "Scientists Discover New Species in Amazon Rainforest",
+      "image": "https://i.ibb.co/VTzMFhD/Scientists-Discover-New-Speci.webp",
+      "publisher": "publisher1",
+      "description": "A team of scientists has discovered a new species of frog in the Amazon Rainforest. The tiny frog, named 'Amazonia Emerald,' is notable for its bright green coloration and unique call. The discovery highlights the importance of preserving biodiversity in the Amazon and the need for further exploration and conservation efforts in the region.",
+      "premium": "yes",
+      "view-count": 2
+    },
+    {
+      "title": "Fashion Week Showcases Latest Trends",
+      "image": "https://i.ibb.co/9VVGC8n/Fashion-Week.webp",
+      "publisher": "publisher2",
+      "description": "Fashion Week is underway in New York City, showcasing the latest trends and designs from top designers and brands. From glamorous evening gowns to edgy streetwear, Fashion Week offers a glimpse into the future of fashion. Celebrities, influencers, and fashion enthusiasts from around the world flock to the city to attend runway shows and exclusive events.",
+      "premium": "no",
+      "view-count": 1
+    }
+  ]
+  
