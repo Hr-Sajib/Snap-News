@@ -34,16 +34,16 @@ const Trending = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     swipeToSlide: true,
-    autoplay: true,
+    // autoplay: true,
     speed: 500,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     arrows: false,
   };
   ;
 
   return (
-    <div className="lg:mx-20 border rounded-xl p-4 shadow-lg">
-        <p className="text-xl font-bold mb-2 text-gray-400">Now Trending</p>
+<div className="lg:mx-20 border rounded-xl p-4 shadow-lg bg-gradient-to-r to-blue-400/30 from-gray-200/30">
+      <p className="text-xl font-bold mb-2 text-blue-800">Now Trending</p>
       <Slider {...sliderSettings}>
         {
           trendingNews.map((news, index) => (

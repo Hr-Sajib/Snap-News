@@ -5,7 +5,7 @@
       "publisher": "publisher1",
       "description": "Apple has announced the launch of its latest flagship smartphone, the iPhone 13. The new device comes with a range of enhancements, including improved camera features such as enhanced night mode, cinematic video recording, and improved image stabilization. The iPhone 13 is expected to be available in stores next month.",
       "premium": "yes",
-      "view-count": 8
+      "view-count": 4
     },
     {
       "title": "Stock Market Surges to Record High",
@@ -13,7 +13,7 @@
       "publisher": "publisher2",
       "description": "The stock market rallied to record highs today, with the S&P 500 reaching a new all-time high. Investors are optimistic about the economic recovery and corporate earnings, driving stocks higher across the board. Technology and healthcare stocks led the gains, while energy and financials also saw strong performance.",
       "premium": "no",
-      "view-count": 10
+      "view-count": 8
     },
     {
       "title": "New Study Reveals Health Benefits of Green Tea",
@@ -53,7 +53,7 @@
       "publisher": "publisher1",
       "description": "Advancements in artificial intelligence (AI) are transforming the healthcare industry, with AI-powered technologies improving diagnosis, treatment, and patient care. From predictive analytics to robotic surgery, AI is revolutionizing how healthcare is delivered and managed. As AI continues to evolve, it has the potential to address some of the biggest challenges facing healthcare systems worldwide.",
       "premium": "yes",
-      "view-count": 4
+      "view-count": 10
     },
     {
       "title": "New Musical Album Tops Billboard Charts",
@@ -74,7 +74,7 @@
     {
       "title": "Fashion Week Showcases Latest Trends",
       "image": "https://i.ibb.co/9VVGC8n/Fashion-Week.webp",
-      "publisher": "publisher2",
+      "publisher": "publisher3",
       "description": "Fashion Week is underway in New York City, showcasing the latest trends and designs from top designers and brands. From glamorous evening gowns to edgy streetwear, Fashion Week offers a glimpse into the future of fashion. Celebrities, influencers, and fashion enthusiasts from around the world flock to the city to attend runway shows and exclusive events.",
       "premium": "no",
       "view-count": 1

@@ -46,8 +46,6 @@ const Plans = () => {
         </div>
         <ul className="list-disc list-inside mb-4">
           <li>Up to 6 Premium or Kids accounts</li>
-          <li>Block explicit music</li>
-          <li>Access to Spotify Kids</li>
           <li>Cancel anytime</li>
           <li>15 hours/month of listening time from our audiobooks subscriber catalog (plan manager only)</li>
         </ul>

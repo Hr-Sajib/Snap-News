@@ -1,7 +1,28 @@
-import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { fetchPublishers } from '../../functions';
+
 
 const AddArticle = () => {
+
+  const [Publishers, setPublishers] = useState([]);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['fetchPublishers'],
+    queryFn: fetchPublishers,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setPublishers(data);
+    }
+  }, [data]);
+
+
+
+  console.log(Publishers);
+
   const [articleInfo, setArticleInfo] = useState({
     title: '',
     image: '',
@@ -16,7 +37,8 @@ const AddArticle = () => {
   };
 
   const handleImageChange = (e) => {
-    setArticleInfo({ ...articleInfo, image: e.target.files[0] });
+    const { image, value } = e.target;
+    setArticleInfo({ ...articleInfo, [image]: value});
   };
 
   const handleTagChange = (tags) => {
@@ -27,7 +49,6 @@ const AddArticle = () => {
     e.preventDefault();
     console.log("Article Info:", articleInfo);
   };
-
 
 
 
@@ -49,8 +70,10 @@ const AddArticle = () => {
           <label className="block text-sm font-semibold mb-2">Publisher:</label>
           <select name="publisher" value={articleInfo.publisher} onChange={handleInputChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required>
             <option value="">Select Publisher</option>
-            <option value="publisher1">Publisher 1</option>
-            <option value="publisher2">Publisher 2</option>
+            {
+              Publishers.map((p) =>  <option key={p.index} value={p.publisher}>{p.publisher}</option>
+              )
+            }
           </select>
         </div>
 

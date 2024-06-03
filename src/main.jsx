@@ -14,6 +14,8 @@ import AuthProvider from './components/AuthProvider/AuthProvider.jsx';
 import Signup from './components/AuthProvider/Signup.jsx';
 import AddArticle from './components/Home/AddArticles.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import PrivateRoute from './components/PrivateRoute.jsx';
+import AllArticles from './components/AllArticles.jsx';
 
 
 
@@ -38,12 +40,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-articles",
-        element: <AddArticle/>
+        element: <PrivateRoute><AddArticle/></PrivateRoute>
       },
-      // {
-      //   path: "/all-articles",
-      //   element: <AllArticles />
-      // },
+      {
+        path: "/all-articles",
+        element: <AllArticles />
+      },
       // {
       //   path: "/subscription",
       //   element: <Subscription />

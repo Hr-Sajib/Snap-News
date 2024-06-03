@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 
 const Login = () => {
     const [passwordShow, setPasswordShow] = useState(false);
     const {googleSignUp, loginUser} = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+
 
 
     // handle log in
