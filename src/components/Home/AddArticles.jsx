@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { fetchPublishers } from '../../functions';
 
-
 const AddArticle = () => {
-
-  const [Publishers, setPublishers] = useState([]);
+  const [publishers, setPublishers] = useState([]);
 
   const { data, isLoading } = useQuery({
     queryKey: ['fetchPublishers'],
@@ -19,16 +18,13 @@ const AddArticle = () => {
     }
   }, [data]);
 
-
-
-  console.log(Publishers);
-
   const [articleInfo, setArticleInfo] = useState({
     title: '',
     image: '',
     publisher: '',
     tags: [],
-    description: ''
+    description: '',
+    approval: 'no'
   });
 
   const handleInputChange = (e) => {
@@ -37,17 +33,32 @@ const AddArticle = () => {
   };
 
   const handleImageChange = (e) => {
-    const { image, value } = e.target;
-    setArticleInfo({ ...articleInfo, [image]: value});
+    const { name, value } = e.target;
+    setArticleInfo({ ...articleInfo, image: value });
   };
 
-  const handleTagChange = (tags) => {
+  const handleTagChange = (selectedOptions) => {
+    const tags = selectedOptions ? selectedOptions.map(option => option.value) : [];
     setArticleInfo({ ...articleInfo, tags });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Article Info:", articleInfo);
+
+    // send data to server
+    fetch('http://localhost:5500/addArticles', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(articleInfo)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
   };
 
 
@@ -63,7 +74,7 @@ const AddArticle = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-semibold mb-2">Image Url:</label>
-          <input type="text" name="image" onChange={handleImageChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" accept="image/*" required />
+          <input type="text" name="image" value={articleInfo.image} onChange={handleImageChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required />
         </div>
 
         <div className="mb-4">
@@ -71,8 +82,7 @@ const AddArticle = () => {
           <select name="publisher" value={articleInfo.publisher} onChange={handleInputChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required>
             <option value="">Select Publisher</option>
             {
-              Publishers.map((p) =>  <option key={p.index} value={p.publisher}>{p.publisher}</option>
-              )
+              publishers.map((p, index) => <option key={index} value={p.name}>{p.name}</option>)
             }
           </select>
         </div>
@@ -86,7 +96,7 @@ const AddArticle = () => {
               { value: 'tag1', label: 'Tag 1' },
               { value: 'tag2', label: 'Tag 2' },
             ]}
-            value={articleInfo.tags}
+            value={articleInfo.tags.map(tag => ({ value: tag, label: tag }))}
             onChange={handleTagChange}
           />
         </div>

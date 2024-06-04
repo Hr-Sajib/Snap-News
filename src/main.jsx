@@ -16,6 +16,9 @@ import AddArticle from './components/Home/AddArticles.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import AllArticles from './components/AllArticles.jsx';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
+import AllUsers from './components/Dashboard/AllUsers.jsx';
+import AddPublisher from './components/Dashboard/AddPublisher.jsx';
 
 
 
@@ -46,14 +49,28 @@ const router = createBrowserRouter([
         path: "/all-articles",
         element: <AllArticles />
       },
-      // {
-      //   path: "/subscription",
-      //   element: <Subscription />
-      // },
-      // {
-      //   path: "/dashboard",
-      //   element: <Dashboard />
-      // },
+      {
+        path: "/subscription",
+        // element: <Subscription />
+      },
+      {
+        path: "/dashboard",
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
+        children: [
+          {
+            path: "all-users",
+            element: <AllUsers />
+          },
+          {
+            path: "all-articles",
+            element: <AllArticles />
+          },
+          {
+            path: "add-publisher",
+            element: <AddPublisher />
+          }
+        ]
+      },
       // {
       //   path: "/my-articles",
       //   element: <MyArticles />

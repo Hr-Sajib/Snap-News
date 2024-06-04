@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchNews } from '../functions';
 import { PiStarFill } from "react-icons/pi";
-import { FiSearch } from "react-icons/fi";
 
 
 
@@ -33,7 +32,7 @@ const Allnewsicles = () => {
         if(allNews.length > 0){
             return (
                 <div>
-                    <div className='h-20 mx-24 border border-gray-300 rounded-xl flex items-center justify-between'>
+                    <div className='h-20 mx-24 rounded-xl flex items-center justify-between'>
                         <div className='ml-3'>
                             <form onSubmit={handleFilter}>
                                 <div className="flex">

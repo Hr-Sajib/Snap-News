@@ -6,7 +6,7 @@ export const fetchNews = async()=>{
 }
 
 export const fetchPublishers = async()=>{
-    const res = await fetch('publishers.json');
+    const res = await fetch('http://localhost:5500/getPublishers');
 
     const Publishers = await res.json();
     return Publishers;
