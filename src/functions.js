@@ -1,5 +1,5 @@
 export const fetchNews = async()=>{
-    const res = await fetch('news.json');
+    const res = await fetch('http://localhost:5500/getArticles');
 
     const news = await res.json();
     return news;

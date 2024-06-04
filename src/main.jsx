@@ -19,6 +19,7 @@ import AllArticles from './components/AllArticles.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import AllUsers from './components/Dashboard/AllUsers.jsx';
 import AddPublisher from './components/Dashboard/AddPublisher.jsx';
+import AllAdminArticles from './components/Dashboard/AllAdminArticles.jsx';
 
 
 
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
           },
           {
             path: "all-articles",
-            element: <AllArticles />
+            element: <AllAdminArticles />
           },
           {
             path: "add-publisher",

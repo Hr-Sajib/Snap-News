@@ -1,34 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query'; // Assuming you are using React Query
-import { fetchNews } from '../../functions'; // Assuming fetchNews function is defined
+import { useQuery } from '@tanstack/react-query'; 
+import { fetchPublishers } from '../../functions'; 
 
 const AllPublisher = () => {
-  const [allNews, setAllNews] = useState([]);
   const [publishers, setPublishers] = useState([]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['fetchNews'],
-    queryFn: fetchNews,
+    queryKey: ['fetchPublishers'],
+    queryFn: fetchPublishers,
   });
 
   useEffect(() => {
     if (data) {
-      setAllNews(data);
+      setPublishers(data);
     }
   }, [data]);
-
-  useEffect(() => {
-    // Extract unique publisher names from allNews
-    const uniquePublishers = allNews.reduce((acc, curr) => {
-      if (!acc.includes(curr.publisher)) {
-        acc.push(curr.publisher);
-      }
-      return acc;
-    }, []);
-    setPublishers(uniquePublishers);
-  }, [allNews]);
-
-
 
   return (
     <div className="max-w-lg lg:m-20 shadow rounded-xl p-5 bg-gray-50">
@@ -36,7 +22,10 @@ const AllPublisher = () => {
       <ul className="divide-y divide-gray-200">
         {publishers.map((publisher, index) => (
           <li key={index} className="py-2">
-            <span className="text-lg">{publisher}</span>
+            <div className='flex gap-1 items-center'>
+              <img src={publisher.logo} className="h-10 w-10 rounded-full border" alt="" />
+              <span className="text-lg">{publisher.name}</span>
+            </div>
           </li>
         ))}
       </ul>

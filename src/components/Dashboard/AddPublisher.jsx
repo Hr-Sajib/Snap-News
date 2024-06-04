@@ -32,6 +32,8 @@ const AddPublisher = () => {
         });
     };
 
+    
+
     return (
         <div className="max-w-4xl lg:ml-[160px] mt-10 p-6 bg-blue-50 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Add New Publisher</h2>
