@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLoaderData } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 import { fetchNews } from "../../functions";
 
 
@@ -20,6 +18,9 @@ const AllAdminArticles = () => {
         }
     }, [data]);
         
+
+
+
     return (
         <div className="relative bottom-6 right-4">
             {
@@ -37,8 +38,6 @@ export default AllAdminArticles;
 const Article=({news})=>{
 
     
-    console.log(news)
-
     return(
           <div className="flex bg-blue-100 p-4 rounded-xl mb-2">
                 <img src={news.image} className="h-[300px] w-[320px] rounded-xl " alt="" />
