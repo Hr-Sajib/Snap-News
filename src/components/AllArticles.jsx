@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchNews, fetchPublishers } from '../functions';
 import { PiStarFill } from "react-icons/pi";
+import axios from 'axios';
 
 const Allnewsicles = () => {
     // Load news
@@ -57,6 +58,20 @@ const Allnewsicles = () => {
     
         setShowNews(filteredNews);
     };
+
+
+    const handleSearch =(e)=>{
+        e.preventDefault();
+
+        const searchText = e.target.searchText.value;
+
+        //server call
+        axios.get(`http://localhost:5500/getSearchedArticles/${searchText}`)
+        .then(res =>{
+            setShowNews(res.data);
+        })
+
+    }
     
 
 
@@ -94,8 +109,8 @@ const Allnewsicles = () => {
                             </div>
                         </form>
                     </div>
-                    <form>
-                        <input type="text" className='border border-black h-12 w-[400px] rounded-lg px-3' />
+                    <form onSubmit={handleSearch}>
+                        <input type="text" name="searchText" className='border border-black h-12 w-[400px] rounded-lg px-3' />
                         <input type="submit" value="Search" className='relative right-[10px] text-white bg-black h-12 w-32 rounded-r-lg' />
                     </form>
                 </div>
