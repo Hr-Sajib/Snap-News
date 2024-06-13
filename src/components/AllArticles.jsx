@@ -140,7 +140,7 @@ export default Allnewsicles;
 const News = ({ news }) => {
     return (
         <div className='p-5 flex flex-col justify-between rounded-xl bg-gray-100 lg:mb-0 mb-3 lg:h-[630px]'>
-            <img className='h-[300px] w-full rounded-2xl' src={news.image} alt="" />
+            <img className='h-[300px] w-full rounded-2xl' src={news.imageUrl} alt="" />
             <p className='dancing-script-font text-2xl my-2'>{news.title}</p>
             <div>
                 <p className="">{news.publisher}</p>

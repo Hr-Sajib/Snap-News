@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Select from 'react-select';
 import { fetchPublishers } from '../../functions';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+
+const Image_Hosting_key = import.meta.env.VITE_Image_Hosting_key;
+const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_key}`;
 
 const AddArticle = () => {
   const [publishers, setPublishers] = useState([]);
@@ -20,19 +22,14 @@ const AddArticle = () => {
     }
   }, [data]);
 
-
-
-
-
-
   const [articleInfo, setArticleInfo] = useState({
     title: '',
-    image: '',
+    image: null, // Updated to handle file
     publisher: '',
     tags: [],
     description: '',
     premium: '',
-    approval: 'no'
+    approval: 'no',
   });
 
   const handleInputChange = (e) => {
@@ -41,8 +38,8 @@ const AddArticle = () => {
   };
 
   const handleImageChange = (e) => {
-    const { name, value } = e.target;
-    setArticleInfo({ ...articleInfo, image: value });
+    const file = e.target.files[0];
+    setArticleInfo({ ...articleInfo, image: file });
   };
 
   const handleTagChange = (selectedOptions) => {
@@ -50,45 +47,50 @@ const AddArticle = () => {
     setArticleInfo({ ...articleInfo, tags });
   };
 
+  const { user } = useContext(AuthContext);
 
-
-  // add user info and current date
-  const {user} = useContext(AuthContext);
-
-  useEffect(()=>{
-
+  useEffect(() => {
     const d = new Date();
     const options = { month: 'long', day: 'numeric', year: 'numeric' };
     const date = d.toLocaleDateString('en-US', options);
 
-    setArticleInfo({ ...articleInfo, date: date , authorName: user.displayName, authorEmail: user.email, authorImage: user.photoURL});
+    setArticleInfo({
+      ...articleInfo,
+      date: date,
+      authorName: user.displayName,
+      authorEmail: user.email,
+      authorImage: user.photoURL,
+    });
+  }, [user]);
 
-  },[])
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Article Info:", articleInfo);
 
+    // Upload image to ImgBB and get the URL
+    const formData = new FormData();
+    formData.append('image', articleInfo.image);
 
-    // send data to server
-    fetch('http://localhost:5500/addArticles', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(articleInfo)
-    })
-    .then(res => res.json())
-    .then(data => {
-      // console.log(data);
-    })
-    .catch(error => console.error('Error:', error));
+    try {
+      const response = await axios.post(Image_Hosting_API, formData);
+      const imageUrl = response.data.data.url;
+
+      // Include the image URL in the article info
+      const articleData = { ...articleInfo, image: imageUrl };
+
+      // Remove the file from the article data as we have uploaded it
+      delete articleData.image;
+
+      // Send article data to server
+      const articleResponse = await axios.post('http://localhost:5500/addArticles', articleData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Article Info:', articleResponse.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
-
-
-// console.log(user);
-
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-blue-50 rounded-lg">
@@ -96,24 +98,51 @@ const AddArticle = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-semibold mb-2">Title:</label>
-          <input type="text" name="title" value={articleInfo.title} onChange={handleInputChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required />
+          <input
+            type="text"
+            name="title"
+            value={articleInfo.title}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          />
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-semibold mb-2">Image Url:</label>
-          <input type="text" name="image" value={articleInfo.image} onChange={handleImageChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required />
+          <label className="block text-sm font-semibold mb-2">Image:</label>
+          <input
+            type="file"
+            name="image"
+            onChange={handleImageChange}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          />
         </div>
 
         <div className="mb-4">
-          <select name="publisher" value={articleInfo.publisher} onChange={handleInputChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required>
+          <select
+            name="publisher"
+            value={articleInfo.publisher}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          >
             <option value="">Select Publisher</option>
-            {
-              publishers.map((p, index) => <option key={index} value={p.name}>{p.name}</option>)
-            }
+            {publishers.map((p, index) => (
+              <option key={index} value={p.name}>
+                {p.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="mb-4">
-          <select name="premium" value={articleInfo.premium} onChange={handleInputChange} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required>
+          <select
+            name="premium"
+            value={articleInfo.premium}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          >
             <option value="">Select Premium or Not</option>
             <option value="yes">Premium</option>
             <option value="no">Not Premium</option>
@@ -148,10 +177,21 @@ const AddArticle = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-semibold mb-2">Description:</label>
-          <textarea name="description" value={articleInfo.description} onChange={handleInputChange} className="w-full h-[200px] px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 border-transparent" required></textarea>
+          <textarea
+            name="description"
+            value={articleInfo.description}
+            onChange={handleInputChange}
+            className="w-full h-[200px] px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          ></textarea>
         </div>
 
-        <button type="submit" className="w-full bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">Submit</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
