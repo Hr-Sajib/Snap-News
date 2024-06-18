@@ -39,6 +39,26 @@ const Login = () => {
             console.log(res.user);
             navigate(location?.state ? location.state : '/');
 
+            //send to server
+            const newUser = { userEmail : res.user.email, premiumToken : null};
+
+            
+            fetch('http://localhost:5500/addUser',{
+              method:"POST",
+              headers:{
+                  'content-type':'application/json'
+              },
+              body: JSON.stringify(newUser)
+  
+          })
+          .then(res=>res.json())
+          .then(data=>{
+              console.log(data);
+              // Swal.fire("Information Added");
+          })
+
+
+
         })
         .catch((error) => {
             console.log(error.message);

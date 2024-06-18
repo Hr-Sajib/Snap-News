@@ -1,16 +1,17 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Plans = () => {
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate('/subscription');
+  const handleNavigate = (event, path) => {
+    event.preventDefault(); // Prevent default link behavior
+    navigate(path);
   };
 
   return (
     <div className="flex justify-center gap-20 mt-10">
-      <div className="border flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
+      <div className="border lg:h-[420px] hover:bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
         <div className="mb-4 text-center">
           <p className="bg-pink-200 text-pink-800 py-1 px-2 rounded-full inline-block mb-2">Free For 1 Month</p>
           <h3 className="text-xl font-bold">Premium Individual</h3>
@@ -21,11 +22,15 @@ const Plans = () => {
           <li>Cancel anytime</li>
           <li>15 hours/month of listening time from our audiobooks subscriber catalog</li>
         </ul>
-        <button onClick={handleNavigate} className="bg-pink-500 text-white py-2 px-4 rounded-lg w-full hover:bg-pink-600">Try free for 1 month</button>
-        <p className="text-sm text-gray-600 mt-4">Free for 1 month, then $10.99 per month after. Offer only available if you haven't tried Premium before. <a href="#" className="text-pink-500 underline">Terms apply.</a></p>
+        <button onClick={(event) => handleNavigate(event, '/subscription')} className="bg-pink-500 text-white py-2 px-4 rounded-lg w-full hover:bg-pink-600">
+          Try free for 1 month
+        </button>
+        <p className="text-sm text-gray-600 mt-4">
+          Free for 1 month, then $10.99 per month after. Offer only available if you haven't tried Premium before. <Link to="#" className="text-pink-500 underline">Terms apply.</Link>
+        </p>
       </div>
 
-      <div className="border flex flex-col justify-between  rounded-lg p-6 w-80 bg-white shadow-lg">
+      <div className="border lg:h-[420px] hover:bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
         <div className="mb-4 text-center">
           <h3 className="text-xl font-bold">Premium Duo</h3>
           <p className="text-lg font-semibold mt-2">$14.99</p>
@@ -35,11 +40,15 @@ const Plans = () => {
           <li>Cancel anytime</li>
           <li>15 hours/month of listening time from our audiobooks subscriber catalog (plan manager only)</li>
         </ul>
-        <button onClick={handleNavigate} className="bg-yellow-500 text-white py-2 px-4 rounded-lg w-full hover:bg-yellow-600">Get Premium Duo</button>
-        <p className="text-sm text-gray-600 mt-4">For couples who reside at the same address. <a href="#" className="text-yellow-500 underline">Terms apply.</a></p>
+        <button onClick={(event) => handleNavigate(event, '/subscription')} className="bg-yellow-500 text-white py-2 px-4 rounded-lg w-full hover:bg-yellow-600">
+          Get Premium Duo
+        </button>
+        <p className="text-sm text-gray-600 mt-4">
+          For couples who reside at the same address. <Link to="#" className="text-yellow-500 underline">Terms apply.</Link>
+        </p>
       </div>
 
-      <div className="border flex flex-col justify-between  rounded-lg p-6 w-80 bg-white shadow-lg">
+      <div className="border lg:h-[420px] hover:bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
         <div className="mb-4 text-center">
           <h3 className="text-xl font-bold">Premium Family</h3>
           <p className="text-lg font-semibold mt-2">$16.99</p>
@@ -49,8 +58,12 @@ const Plans = () => {
           <li>Cancel anytime</li>
           <li>15 hours/month of listening time from our audiobooks subscriber catalog (plan manager only)</li>
         </ul>
-        <button onClick={handleNavigate} className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full hover:bg-blue-600">Get Premium Family</button>
-        <p className="text-sm text-gray-600 mt-4">For up to 6 family members residing at the same address. <a href="#" className="text-blue-500 underline">Terms apply.</a></p>
+        <button onClick={(event) => handleNavigate(event, '/subscription')} className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full hover:bg-blue-600">
+          Get Premium Family
+        </button>
+        <p className="text-sm text-gray-600 mt-4">
+          For up to 6 family members residing at the same address. <Link to="#" className="text-blue-500 underline">Terms apply.</Link>
+        </p>
       </div>
     </div>
   );

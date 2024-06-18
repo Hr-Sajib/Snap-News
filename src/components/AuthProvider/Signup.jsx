@@ -83,6 +83,11 @@ const Signup = () => {
             toast('Signed in successfully!');
             navigate(location?.state ? location.state : '/');
 
+
+            //send to server
+            console.log(res.user)
+
+
         })
         .catch((error) => {
             console.log(error.message);

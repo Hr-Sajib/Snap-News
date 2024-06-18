@@ -22,11 +22,9 @@ const Trending = () => {
 
   useEffect(() => {
       const sortedArray = [...allNews].sort((a, b) => b.views - a.views);
-      console.log('sorted : ', sortedArray)
       setTrendingNews(sortedArray.slice(0, 3));
   }, [allNews]);
 
-  console.log('tn : ',trendingNews);
 
   const sliderSettings = {
     infinite: true,

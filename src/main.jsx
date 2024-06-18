@@ -21,6 +21,9 @@ import AllUsers from './components/Dashboard/AllUsers.jsx';
 import AddPublisher from './components/Dashboard/AddPublisher.jsx';
 import AllAdminArticles from './components/Dashboard/AllAdminArticles.jsx';
 import ArticleDetails from './components/ArticleDetails.jsx';
+import Subscription from './components/Subscription.jsx';
+import Errorpage from './components/Errorpage.jsx';
+import Payment from './components/Payment.jsx';
 
 
 
@@ -30,6 +33,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <Errorpage/>,
     children: [
       {
         path: "/",
@@ -58,10 +62,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/subscription",
-        // element: <Subscription />
+        element: <Subscription />
+      },
+      {
+        path: "/payment",
+        element: <Payment />
       },
       {
         path: "/dashboard",
+        errorElement: <Errorpage/>,
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
           {
