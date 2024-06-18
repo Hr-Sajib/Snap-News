@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import auth from '../../../firebase.config';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
+import { convertToISOFormat } from "../../functions";
+
 
 
 const Signup = () => {
@@ -69,8 +71,8 @@ const Signup = () => {
                       try {
                         const response = await axios.get('http://localhost:5500/getUsers');
                         const users = response.data;
-                        const userExists = users.some(user => user.userEmail === res.user.email);
-          
+                        const userExists = users.find(user => user.userEmail === res.user.email);
+                        
                         if (!userExists) {
                             const newUser = { userEmail: res.user.email, premiumToken: null };
           
@@ -83,7 +85,41 @@ const Signup = () => {
                             console.log('User added successfully.');
                             // Swal.fire("Information Added");
                         } else {
+          
+                          //premium token update
                             console.log('User exists in usersCollection.');
+          
+                            const loginTime = convertToISOFormat(res.user.metadata.lastSignInTime);
+                            const premiumTokenTime = userExists.premiumToken;
+          
+                            console.log('login ', loginTime)
+                            console.log('premium till ', premiumTokenTime)
+          
+                            
+                            const date1 = new Date(loginTime);
+                            const date2 = new Date(premiumTokenTime);
+          
+                            console.log(date2 > date1)
+                        
+                            // Compare the two dates
+                            if(date2 > date1 !== true){
+                              axios.put(`http://localhost:5500/updateUser/${res.user.email}`, { premiumToken:null }, {
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                })
+                                .then(data => {
+                                    console.log('Premium Subscription Doesnt Exit..');
+                                })
+                                .catch(error => {
+                                    console.error('Error updating subscription data:', error);
+                                });
+          
+          
+                              }
+                              else{
+                                console.log('Subscription exists..')
+                              }
                         }
                     } catch (error) {
                         console.log(error.message);
@@ -105,7 +141,6 @@ const Signup = () => {
         googleSignUp()
         .then(async(res) => {
             console.log(res.user);
-            toast('Signed in successfully!');
             navigate(location?.state ? location.state : '/');
 
 
@@ -115,8 +150,8 @@ const Signup = () => {
             try {
                 const response = await axios.get('http://localhost:5500/getUsers');
                 const users = response.data;
-                const userExists = users.some(user => user.userEmail === res.user.email);
-  
+                const userExists = users.find(user => user.userEmail === res.user.email);
+                
                 if (!userExists) {
                     const newUser = { userEmail: res.user.email, premiumToken: null };
   
@@ -129,12 +164,45 @@ const Signup = () => {
                     console.log('User added successfully.');
                     // Swal.fire("Information Added");
                 } else {
+  
+                  //premium token update
                     console.log('User exists in usersCollection.');
+  
+                    const loginTime = convertToISOFormat(res.user.metadata.lastSignInTime);
+                    const premiumTokenTime = userExists.premiumToken;
+  
+                    console.log('login ', loginTime)
+                    console.log('premium till ', premiumTokenTime)
+  
+                    
+                    const date1 = new Date(loginTime);
+                    const date2 = new Date(premiumTokenTime);
+  
+                    console.log(date2 > date1)
+                
+                    // Compare the two dates
+                    if(date2 > date1 !== true){
+                      axios.put(`http://localhost:5500/updateUser/${res.user.email}`, { premiumToken:null }, {
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        })
+                        .then(data => {
+                            console.log('Premium Subscription Doesnt Exit..');
+                        })
+                        .catch(error => {
+                            console.error('Error updating subscription data:', error);
+                        });
+  
+  
+                      }
+                      else{
+                        console.log('Subscription exists..')
+                      }
                 }
             } catch (error) {
                 console.log(error.message);
             }
-
 
         })
         .catch((error) => {

@@ -149,7 +149,7 @@ export default Allnewsicles;
 
 
 const News = ({ news, savedUser }) => {
-    const isPremium = news.premium === "yes";
+    const isPremium = news.premium == "yes";
     const canViewDetails = !isPremium || (isPremium && savedUser?.premiumToken);
 
     return (

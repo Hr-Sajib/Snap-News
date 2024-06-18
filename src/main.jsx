@@ -24,6 +24,8 @@ import ArticleDetails from './components/ArticleDetails.jsx';
 import Subscription from './components/Subscription.jsx';
 import Errorpage from './components/Errorpage.jsx';
 import Payment from './components/Payment.jsx';
+import PremiumArticles from './components/PremiumArticles.jsx';
+import MyArticles from './components/MyArticles.jsx';
 
 
 
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/subscription",
-        element: <Subscription />
+        element: <PrivateRoute><Subscription /></PrivateRoute>
       },
       {
         path: "/payment",
@@ -87,13 +89,13 @@ const router = createBrowserRouter([
           }
         ]
       },
-      // {
-      //   path: "/my-articles",
-      //   element: <MyArticles />
-      // },
+      {
+        path: "/my-articles",
+        element: <MyArticles />
+      },
       {
         path: "/premium-articles",
-        // element: <PremiumArticles />
+        element: <PremiumArticles/>
       },
       // {
       //   path: "/user-photo",
