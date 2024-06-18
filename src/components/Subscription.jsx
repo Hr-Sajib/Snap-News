@@ -2,63 +2,59 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from './AuthProvider/AuthProvider';
-import { useEffect } from 'react';
+import { addDurationToTime } from '../functions';
 
 const Subscription = () => {
-  const [subscriptionPeriod, setSubscriptionPeriod] = useState('1 minute');
+  const [subscriptionPeriod, setSubscriptionPeriod] = useState({ days: 0, hours: 0, minutes: 1, seconds: 0 });
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const email = user?.email;
 
   const handleSubscriptionChange = (event) => {
-    setSubscriptionPeriod(event.target.value);
+    const value = event.target.value;
+    let duration = {};
+    switch (value) {
+      case '1 minute':
+        duration = { days: 0, hours: 0, minutes: 1, seconds: 0 };
+        break;
+      case '5 days':
+        duration = { days: 5, hours: 0, minutes: 0, seconds: 0 };
+        break;
+      case '10 days':
+        duration = { days: 10, hours: 0, minutes: 0, seconds: 0 };
+        break;
+      default:
+        duration = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+        break;
+    }
+    setSubscriptionPeriod(duration);
   };
 
-//   useEffect(()=>{
-//     axios.get(`http://localhost:5500/getUser/${email}`)
-//     .then(res=>{
-//         console.log(res.data);
-//     }
-//     )
-//   },[email])
-
-
-
-
-//   const response = await axios.get(`http://localhost:5500/getUser/${email}`);
-
   const handleSubscribeClick = () => {
+    const currentTime = new Date().toISOString();
+    const premiumToken = addDurationToTime(currentTime, subscriptionPeriod); // Concatenate currentTime and subscriptionPeriod
 
-        const currentTime = new Date().toISOString();
-        const updatedUser = {
-          premiumToken: currentTime,
-          period: subscriptionPeriod,
-        };
+    axios.put(`http://localhost:5500/updateUser/${email}`, { premiumToken }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(data => {
+        console.log('Subscription Data Updated for that user in time : ', currentTime);
+        console.log('Subscription Data Updated for that user till :', premiumToken);
+    })
+    .catch(error => {
+        console.error('Error updating subscription data:', error);
+    });
 
-        axios.put(`http://localhost:5500/updateUser/${email}`, updatedUser, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(data=>{
-            console.log('Subscription Data Updated for that user..',data);
-        })
-
-        navigate('/payment', { state: { period: subscriptionPeriod, price: getSubscriptionPrice(subscriptionPeriod) } });
-      
+    navigate('/payment', { state: { period: subscriptionPeriod, price: getSubscriptionPrice(subscriptionPeriod) } });
   };
 
   const getSubscriptionPrice = (period) => {
-    switch (period) {
-      case '1 minute':
-        return '$0.50';
-      case '5 days':
-        return '$5.00';
-      case '10 days':
-        return '$9.00';
-      default:
-        return '$0.00';
-    }
+    if (period.minutes === 1) return '$0.50';
+    if (period.days === 5) return '$5.00';
+    if (period.days === 10) return '$9.00';
+    return '$0.00';
   };
 
   return (
@@ -72,7 +68,6 @@ const Subscription = () => {
           </label>
           <select
             id="subscriptionPeriod"
-            value={subscriptionPeriod}
             onChange={handleSubscriptionChange}
             className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
           >

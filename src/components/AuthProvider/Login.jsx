@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { convertToISOFormat } from "../../functions";
 import { AuthContext } from "./AuthProvider";
 
 const Login = () => {
@@ -22,7 +23,6 @@ const Login = () => {
 
         loginUser(email, password)
         .then(res => {
-          console.log(res.user);
           navigate(location?.state ? location.state : '/');
           
           e.target.email.value = "";
@@ -44,7 +44,9 @@ const Login = () => {
           try {
               const response = await axios.get('http://localhost:5500/getUsers');
               const users = response.data;
-              const userExists = users.some(user => user.userEmail === res.user.email);
+              const userExists = users.find(user => user.userEmail === res.user.email);
+              
+
 
               if (!userExists) {
                   const newUser = { userEmail: res.user.email, premiumToken: null };
@@ -59,6 +61,25 @@ const Login = () => {
                   // Swal.fire("Information Added");
               } else {
                   console.log('User exists in usersCollection.');
+
+
+                  const loginTime = convertToISOFormat(res.user.metadata.lastSignInTime);
+                  const premiumTokenTime = userExists.premiumToken;
+
+                  // console.log('login ', loginTime)
+                  // console.log('premium till ', premiumTokenTime)
+
+                  
+                  const date1 = new Date(loginTime);
+                  const date2 = new Date(premiumTokenTime);
+              
+                  // Compare the two dates
+                  console.log(date2 > date1);
+
+
+
+                  
+                
               }
           } catch (error) {
               console.log(error.message);
