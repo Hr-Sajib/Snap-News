@@ -20,6 +20,7 @@ import Dashboard from './components/Dashboard/Dashboard.jsx';
 import AllUsers from './components/Dashboard/AllUsers.jsx';
 import AddPublisher from './components/Dashboard/AddPublisher.jsx';
 import AllAdminArticles from './components/Dashboard/AllAdminArticles.jsx';
+import ArticleDetails from './components/ArticleDetails.jsx';
 
 
 
@@ -49,6 +50,11 @@ const router = createBrowserRouter([
       {
         path: "/all-articles",
         element: <AllArticles />
+      },
+      {
+        path: "/all-articles/details/:id",
+        loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
+        element: <ArticleDetails/>
       },
       {
         path: "/subscription",

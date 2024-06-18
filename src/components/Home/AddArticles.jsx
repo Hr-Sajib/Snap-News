@@ -24,12 +24,13 @@ const AddArticle = () => {
 
   const [articleInfo, setArticleInfo] = useState({
     title: '',
-    image: null, // Updated to handle file
+    image: null, 
     publisher: '',
     tags: [],
     description: '',
     premium: '',
     approval: 'no',
+    views: 0
   });
 
   const handleInputChange = (e) => {
