@@ -1,17 +1,51 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from './AuthProvider/AuthProvider';
+import { useEffect } from 'react';
 
 const Subscription = () => {
   const [subscriptionPeriod, setSubscriptionPeriod] = useState('1 minute');
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const email = user?.email;
 
   const handleSubscriptionChange = (event) => {
     setSubscriptionPeriod(event.target.value);
   };
 
+//   useEffect(()=>{
+//     axios.get(`http://localhost:5500/getUser/${email}`)
+//     .then(res=>{
+//         console.log(res.data);
+//     }
+//     )
+//   },[email])
+
+
+
+
+//   const response = await axios.get(`http://localhost:5500/getUser/${email}`);
+
   const handleSubscribeClick = () => {
-    // Navigate to the payment page with the selected subscription period and price
-    console.log('/payment', { state: { period: subscriptionPeriod, price: getSubscriptionPrice(subscriptionPeriod) } });
+
+        const currentTime = new Date().toISOString();
+        const updatedUser = {
+          premiumToken: currentTime,
+          period: subscriptionPeriod,
+        };
+
+        axios.put(`http://localhost:5500/updateUser/${email}`, updatedUser, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(data=>{
+            console.log('Subscription Data Updated for that user..',data);
+        })
+
+        navigate('/payment', { state: { period: subscriptionPeriod, price: getSubscriptionPrice(subscriptionPeriod) } });
+      
   };
 
   const getSubscriptionPrice = (period) => {
@@ -29,7 +63,7 @@ const Subscription = () => {
 
   return (
     <div className="flex items-center p-6 mb-32 lg:mt-[80px] justify-center gap-10 border border-black rounded-xl lg:mx-[300px]">
-      <img className=" lg:h-[300px] rounded-xl" src="https://i.ibb.co/n3K7KQ2/sub.png" alt="Subscribe Banner" />
+      <img className="lg:h-[300px] rounded-xl" src="https://i.ibb.co/n3K7KQ2/sub.png" alt="Subscribe Banner" />
       <div className="w-full border max-w-md bg-white p-6 rounded-xl shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Choose Your Subscription Plan</h2>
         <div className="mb-4">
@@ -50,12 +84,12 @@ const Subscription = () => {
         <div className="mb-4">
           <p className="text-center text-xl">Price: {getSubscriptionPrice(subscriptionPeriod)}</p>
         </div>
-        <Link to="/payment"><button
+        <button
           onClick={handleSubscribeClick}
           className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Subscribe Now
-        </button></Link>
+        </button>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { LuEye, LuEyeOff } from "react-icons/lu";
 import "react-toastify/dist/ReactToastify.css";
 import auth from '../../../firebase.config';
 import { toast, ToastContainer } from 'react-toastify';
+import axios from 'axios';
 
 
 const Signup = () => {
@@ -52,7 +53,7 @@ const Signup = () => {
             {
               termsChecked
                 ? createUser(auth, email, password)
-                    .then((res) => {
+                    .then(async(res) => {
                       console.log(res.user);
         
                       e.target.name.value = "";
@@ -63,6 +64,30 @@ const Signup = () => {
       
                       toast("Registered successfully!");
                       navigate(location?.state ? location.state : '/');
+
+
+                      try {
+                        const response = await axios.get('http://localhost:5500/getUsers');
+                        const users = response.data;
+                        const userExists = users.some(user => user.userEmail === res.user.email);
+          
+                        if (!userExists) {
+                            const newUser = { userEmail: res.user.email, premiumToken: null };
+          
+                            // Send POST request to add user
+                            await axios.post('http://localhost:5500/addUser', newUser, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            console.log('User added successfully.');
+                            // Swal.fire("Information Added");
+                        } else {
+                            console.log('User exists in usersCollection.');
+                        }
+                    } catch (error) {
+                        console.log(error.message);
+                    }
 
                     })
                     .catch((error) => {
@@ -78,14 +103,37 @@ const Signup = () => {
     //google sign in
     const handleSignIpWithGoogle =()=>{
         googleSignUp()
-        .then((res) => {
+        .then(async(res) => {
             console.log(res.user);
             toast('Signed in successfully!');
             navigate(location?.state ? location.state : '/');
 
 
             //send to server
-            console.log(res.user)
+            console.log('logged in successfully..');
+
+            try {
+                const response = await axios.get('http://localhost:5500/getUsers');
+                const users = response.data;
+                const userExists = users.some(user => user.userEmail === res.user.email);
+  
+                if (!userExists) {
+                    const newUser = { userEmail: res.user.email, premiumToken: null };
+  
+                    // Send POST request to add user
+                    await axios.post('http://localhost:5500/addUser', newUser, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    console.log('User added successfully.');
+                    // Swal.fire("Information Added");
+                } else {
+                    console.log('User exists in usersCollection.');
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
 
 
         })

@@ -91,10 +91,10 @@ const router = createBrowserRouter([
       //   path: "/my-articles",
       //   element: <MyArticles />
       // },
-      // {
-      //   path: "/premium-articles",
-      //   element: <PremiumArticles />
-      // },
+      {
+        path: "/premium-articles",
+        // element: <PremiumArticles />
+      },
       // {
       //   path: "/user-photo",
       //   element: <UserPhoto />

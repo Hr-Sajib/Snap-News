@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchNews, fetchPublishers } from '../functions';
 import { PiStarFill } from "react-icons/pi";
 import axios from 'axios';
+import { AuthContext } from './AuthProvider/AuthProvider';
 
 const Allnewsicles = () => {
     // Load news
@@ -59,33 +60,49 @@ const Allnewsicles = () => {
         setShowNews(filteredNews);
     };
 
-
-    const handleSearch =(e)=>{
+    const handleSearch = (e) => {
         e.preventDefault();
 
         const searchText = e.target.searchText.value;
 
-        //server call
+        // server call
         axios.get(`http://localhost:5500/getSearchedArticles/${searchText}`)
-        .then(res =>{
+        .then(res => {
             setShowNews(res.data);
         })
+        .catch(error => {
+            console.error("Error fetching searched articles:", error);
+        });
+    };
 
-    }
-    
+    // Handle premium or not 
+    const { user } = useContext(AuthContext);
+    const email = user?.email;
 
+    const [savedUser, setSavedUser] = useState(null);
 
-
-
-
+    useEffect(() => {
+        if (email) {
+            axios.get(`http://localhost:5500/getUser/${email}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(data => {
+                setSavedUser(data.data);
+            })
+            .catch(error => {
+                console.error("Error fetching user data:", error);
+            });
+        }
+    }, [email]);
 
     if (isNewsLoading || isPublishersLoading) {
         return <div>Loading...</div>;
     }
 
-    if(showNews.length >0){
-
-        return (
+    return (
+        showNews.length > 0 ? (
             <div>
                 <div className='h-20 mx-24 rounded-xl flex items-center justify-between'>
                     <div className='ml-3'>
@@ -114,30 +131,27 @@ const Allnewsicles = () => {
                         <input type="submit" value="Search" className='relative right-[10px] text-white bg-black h-12 w-32 rounded-r-lg' />
                     </form>
                 </div>
-                <div className='lg:grid grid-cols-4 lg:mx-20  items-center justify-center  p-3 gap-3'>
+                <div className='lg:grid grid-cols-4 lg:mx-20 items-center justify-center p-3 gap-3'>
                     {
-                        showNews.map(news => <News key={news._id} news={news}></News>)
+                        showNews.map(news => <News key={news._id} news={news} savedUser={savedUser} />)
                     }
                 </div>
             </div>
-        );
-            
-    }
-    else
-    {
-        return(
+        ) : (
             <div className='text-center my-10'>
                 No Such Items
             </div>
         )
-    }
+    );
 };
-
-
 
 export default Allnewsicles;
 
-const News = ({ news }) => {
+
+const News = ({ news, savedUser }) => {
+    const isPremium = news.premium === "yes";
+    const canViewDetails = !isPremium || (isPremium && savedUser?.premiumToken);
+
     return (
         <div className='p-5 flex flex-col justify-between rounded-xl bg-gray-100 lg:mb-0 mb-3 lg:h-[630px]'>
             <img className='h-[300px] w-full rounded-2xl' src={news.imageUrl} alt="" />
@@ -148,9 +162,21 @@ const News = ({ news }) => {
                     <p>{news.description.slice(0, 100)} ...</p>
                 </div>
                 <div className="flex justify-end gap-1">
-                    {news.premium === "yes" ? <div className='flex items-center font-bold px-2 rounded-lg bg-white'><PiStarFill className="text-yellow-500 mr-1" />Premium</div> : null}
+                    {isPremium && (
+                        <div className='flex items-center font-bold px-2 rounded-lg bg-white'>
+                            <PiStarFill className="text-yellow-500 mr-1" />
+                            Premium
+                        </div>
+                    )}
                     <Link to={`details/${news._id}`}>
-                        <button className="bg-blue-200 ml-1 text-black px-10 py-2 rounded-lg hover:bg-gray-200">Details</button>
+                        <button
+                            className={`ml-1 text-black px-10 py-2 rounded-lg hover:bg-gray-200 ${
+                                canViewDetails ? 'bg-blue-200' : 'bg-gray-300 cursor-not-allowed'
+                            }`}
+                            disabled={!canViewDetails}
+                        >
+                            Details
+                        </button>
                     </Link>
                 </div>
             </div>

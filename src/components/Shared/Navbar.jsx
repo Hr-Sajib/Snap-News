@@ -1,4 +1,6 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
@@ -7,6 +9,25 @@ const Navbar = () => {
 
 
     const {user, logOut} = useContext(AuthContext);
+    const email = user?.email;
+
+    const [savedUser, setSavedUser] = useState(null);
+
+    useEffect(() => {
+        if (email) {
+            axios.get(`http://localhost:5500/getUser/${email}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(data => {
+                setSavedUser(data.data);
+            })
+            .catch(error => {
+                console.error("Error fetching user data:", error);
+            });
+        }
+    }, [email]);
 
     const handleLogOut = () =>{
         logOut()
@@ -26,8 +47,12 @@ const Navbar = () => {
             <li className="mr-1"><NavLink to="/subscription">Subscription</NavLink></li>
             <li className="mr-1"><NavLink to="/dashboard">Dashboard</NavLink></li>
             <li className="mr-1"><NavLink to="/my-articles">My Articles</NavLink></li>
-            <li className="mr-1"><NavLink to="/premium-articles">Premium Articles</NavLink></li>
-            <li><NavLink to="/user-photo">User Photo</NavLink></li>
+            {
+                (savedUser?.premiumToken) ? 
+                <li className="mr-1"><NavLink to="/premium-articles">Premium Articles</NavLink></li> :
+                <div></div>
+
+            }
         </>
     return (
         <div className='lg:mx-20 lg:mt-10 lg:mb-5'>

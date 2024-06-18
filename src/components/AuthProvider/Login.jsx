@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { LuEye, LuEyeOff } from "react-icons/lu";
@@ -32,39 +33,43 @@ const Login = () => {
         });
     }
 
+
     //google sign in
     const handleSignIpWithGoogle =()=>{
-        googleSignUp()
-        .then((res) => {
-            console.log(res.user);
-            navigate(location?.state ? location.state : '/');
+      googleSignUp()
+      .then(async (res) => {
+          console.log(res.user);
+          navigate(location?.state ? location.state : '/');
 
-            //send to server
-            const newUser = { userEmail : res.user.email, premiumToken : null};
+          try {
+              const response = await axios.get('http://localhost:5500/getUsers');
+              const users = response.data;
+              const userExists = users.some(user => user.userEmail === res.user.email);
 
-            
-            fetch('http://localhost:5500/addUser',{
-              method:"POST",
-              headers:{
-                  'content-type':'application/json'
-              },
-              body: JSON.stringify(newUser)
-  
-          })
-          .then(res=>res.json())
-          .then(data=>{
-              console.log(data);
-              // Swal.fire("Information Added");
-          })
+              if (!userExists) {
+                  const newUser = { userEmail: res.user.email, premiumToken: null };
 
+                  // Send POST request to add user
+                  await axios.post('http://localhost:5500/addUser', newUser, {
+                      headers: {
+                          'Content-Type': 'application/json'
+                      }
+                  });
+                  console.log('User added successfully.');
+                  // Swal.fire("Information Added");
+              } else {
+                  console.log('User exists in usersCollection.');
+              }
+          } catch (error) {
+              console.log(error.message);
+          }
 
+      })
+      .catch((error) => {
+          console.log(error.message);
+      });
+  }
 
-        })
-        .catch((error) => {
-            console.log(error.message);
-        });
-    
-    }
 
     return (
         <div>
