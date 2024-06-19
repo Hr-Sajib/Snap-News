@@ -53,6 +53,12 @@ const Navbar = () => {
                 <div></div>
 
             }
+            {
+                (user) ?
+                <li className="mr-1"><NavLink to="/my-profile">My Profile</NavLink></li> :
+                null
+
+            }
         </>
     return (
         <div className='lg:mx-20 lg:mt-10 lg:mb-5'>

@@ -26,6 +26,7 @@ import Errorpage from './components/Errorpage.jsx';
 import Payment from './components/Payment.jsx';
 import PremiumArticles from './components/PremiumArticles.jsx';
 import MyArticles from './components/MyArticles.jsx';
+import MyProfile from './components/MyProfile.jsx';
 
 
 
@@ -93,9 +94,13 @@ const router = createBrowserRouter([
         path: "/my-articles",
         element: <MyArticles />
       },
+      {
+        path: "/my-profile",
+        element: <MyProfile/>
+      },
 
 
-      
+
       {
         path: "/premium-articles",
         element: <PremiumArticles/>,
