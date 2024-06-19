@@ -93,14 +93,20 @@ const router = createBrowserRouter([
         path: "/my-articles",
         element: <MyArticles />
       },
+
+
+      
       {
         path: "/premium-articles",
-        element: <PremiumArticles/>
+        element: <PremiumArticles/>,
       },
-      // {
-      //   path: "/user-photo",
-      //   element: <UserPhoto />
-      // }
+      {
+        path: "/premium-articles/details/:id",
+        loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
+        element: <ArticleDetails/>
+      },
+      
+
     ]
   },
 ]);

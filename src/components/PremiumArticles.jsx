@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { PiStarFill } from "react-icons/pi";
+import { Link } from "react-router-dom";
 import { fetchNews } from "../functions";
 
 const PremiumArticles = () => {
@@ -49,9 +50,11 @@ const News = ({ news }) => {
                 <div className="flex flex-col justify-between">
                     <p className="my-3">by <b>{news.publisher}</b></p>
                     <div className="bg-white rounded-xl p-3 my-2">
-                        <p>{news.description}</p>
+                        <p>{news.description.slice(0,300)} ...</p>
                     </div>
-                
+                </div>
+                <div className="flex justify-end">
+                    <Link to={`details/${news._id}`}><button className="btn bg-blue-200 px-10 mt-10">Details</button></Link>
                 </div>
             </div>
         </div>
