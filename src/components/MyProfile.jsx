@@ -13,6 +13,8 @@ const MyProfile = () => {
         favoriteCategories: []
     });
 
+    const [premium, setPremium] = useState(null);
+
     const { user } = useContext(AuthContext);
     const email = user?.email;
 
@@ -29,6 +31,7 @@ const MyProfile = () => {
                         language: data.language || 'english',
                         favoriteCategories: data.favoriteCategories || []
                     });
+                    setPremium(data.premiumToken)
                 })
                 .catch(error => {
                     console.error('Error fetching user data:', error);
@@ -149,8 +152,15 @@ const MyProfile = () => {
                 <div className="mb-4">
                     <label htmlFor="subscriptionStatus" className="block text-sm font-medium mb-2">Subscription Status</label>
                     <div className='flex gap-2 items-center '>
-                        <p className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
-                        <Link to='/subscription' className='bg-blue-200 p-2 text-gray-700 rounded-lg w-[200px] text-center'>Take Subscription</Link>
+                        {
+                            (premium) ?
+                            <p className='bg-blue-400 p-2 text-white rounded-lg w-36 text-center'>Premium Mode</p>
+                            :
+                            <p className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
+
+
+                        }
+                        <Link to='/subscription' className='bg-green-200 p-2 text-gray-700 rounded-lg w-[200px] text-center'>Take New Subscription</Link>
                     </div>
                 </div>
 
