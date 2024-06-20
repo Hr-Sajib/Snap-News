@@ -45,7 +45,7 @@ const Trending = () => {
         {
           trendingNews.map((news, index) => (
             <div key={index} className="flex items-center space-x-4">
-              <img className="lg:h-[430px] lg:w-[600px] w-[320px] rounded-xl" src={news.imageUrl} />
+              <img className="lg:h-[430px] lg:w-[600px] w-[320px] rounded-xl" src={news.image} />
               <div className="flex-1 mt-5">
                 <h2 className="text-3xl font-semibold">{news.title}</h2>
                 <p className="mt-2 text-xl">{news.description}</p>

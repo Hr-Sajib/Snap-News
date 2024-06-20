@@ -41,7 +41,7 @@ const News = ({ news }) => {
 
     return (
         <div className='p-5 flex justify-between rounded-xl bg-gray-100 lg:mt-5'>
-            <img className='lg:h-[360px] lg:w-[400px] rounded-2xl' src={news.imageUrl} alt="" />
+            <img className='lg:h-[360px] lg:w-[400px] rounded-2xl' src={news.image} alt="" />
             <div className="p-5 ">
                 <div className="flex items-center gap-1">
                     <PiStarFill className="text-yellow-500 text-2xl mr-1" />

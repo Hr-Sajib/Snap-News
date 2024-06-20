@@ -92,7 +92,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-articles",
-        element: <MyArticles />
+        element: <PrivateRoute><MyArticles /></PrivateRoute>
+      },
+      {
+        path: "/my-articles/details/:id",
+        loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
+        element: <ArticleDetails/>
       },
       {
         path: "/my-profile",

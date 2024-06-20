@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import { fetchPublishers } from '../../functions';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
@@ -73,13 +74,16 @@ const AddArticle = () => {
 
     try {
       const response = await axios.post(Image_Hosting_API, formData);
-      const imageUrl = response.data.data.url;
+      const image = response.data.data.url;
 
       // Include the image URL in the article info
-      const articleData = { ...articleInfo, image: imageUrl };
+      const articleData = { ...articleInfo, image: image };
 
       // Remove the file from the article data as we have uploaded it
-      delete articleData.image;
+      // delete articleData.image;
+
+      console.log(articleData);
+
 
       // Send article data to server
       const articleResponse = await axios.post('http://localhost:5500/addArticles', articleData, {
@@ -88,6 +92,33 @@ const AddArticle = () => {
         },
       });
       console.log('Article Info:', articleResponse.data);
+
+      Swal.fire({
+        title: 'Success!',
+        text: 'Your Article Posted Successfully.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Reset form state
+        setArticleInfo({
+          title: '',
+          image: null, 
+          publisher: '',
+          tags: [],
+          description: '',
+          premium: '',
+          approval: 'no',
+          views: 0,
+          date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+          authorName: user.displayName,
+          authorEmail: user.email,
+          authorImage: user.photoURL,
+        });
+      
+        // Clear the file input manually
+        document.querySelector('input[type="file"]').value = null;
+      });
+      
     } catch (error) {
       console.error('Error:', error);
     }
