@@ -97,6 +97,16 @@ const Row = ({ article, index, showNews, setShowNews }) => {
         });
     };
 
+
+    const showReason=()=>{
+        Swal.fire({
+            title: 'Decline Reason',
+            text: `${article.approval.slice(16)}`,
+            confirmButtonText: 'OK'
+          });
+    }
+
+
     return (
         <tr className="bg-gray-200 lg:h-20 text-center">
             <th>{index + 1}</th>
@@ -106,10 +116,13 @@ const Row = ({ article, index, showNews, setShowNews }) => {
                     Details
                 </Link>
             </td>
-            <td className="w-[200px] py-3 bg-white">
-                Status
+            <td className={`w-[200px] text-white py-3 ${article.approval[0] == 'a' ? 'bg-green-600':'bg-red-600'}`}>
+                {article.approval.slice(0,8)}
                 <br />
-                Click To See Reason
+                {
+                    article.approval[0] == 'd' ?
+                    <button onClick={showReason} className="bg-red-100 text-black p-2">Click To See Reason</button> : null
+                }
             </td>
             {article.premium === 'yes' ? (
                 <td className="text-center bg-gradient-to-r from-cyan-500 to-blue-500 text-white w-20">

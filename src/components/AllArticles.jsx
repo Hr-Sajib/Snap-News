@@ -18,7 +18,8 @@ const Allnewsicles = () => {
 
     useEffect(() => {
         if (newsData) {
-            setAllNews(newsData);
+            const approvedNews = newsData.filter(n => n.approval[0] == 'a')
+            setAllNews(approvedNews);
         }
     }, [newsData]);
 
