@@ -12,6 +12,15 @@ export const fetchPublishers = async()=>{
     return Publishers;
 }
 
+export const fetchUsers = async()=>{
+    const res = await fetch('http://localhost:5500/getUsers');
+
+    const Users = await res.json();
+    return Users;
+}
+
+
+
 // Function to add a duration to a GMT time
 export const addDurationToTime = (time, duration) => {
     const date = new Date(time);

@@ -6,8 +6,6 @@ const ArticleDetails = () => {
     const { id } = useParams();
     const hasIncrementedView = useRef(false);
 
-    console.log(news)
-
     useEffect(() => {
         const updateViews = async () => {
             try {

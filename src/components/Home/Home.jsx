@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from "react-helmet-async";
 import AllPublisher from './AllPublisher';
 import Plans from './Plans';
+import Statistic from './Statistic';
 import Trending from './Trending';
 
 const Home = () => {
@@ -10,6 +11,8 @@ const Home = () => {
             <Trending/>
             <AllPublisher/>
             <Plans/>
+            <Statistic/>
+
         </div>
     );
 };

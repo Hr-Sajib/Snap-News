@@ -96,14 +96,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-profile",
-        element: <MyProfile/>
+        element: <PrivateRoute><MyProfile/></PrivateRoute>
       },
-
-
 
       {
         path: "/premium-articles",
-        element: <PremiumArticles/>,
+        element: <PrivateRoute><PremiumArticles/></PrivateRoute>,
       },
       {
         path: "/premium-articles/details/:id",
