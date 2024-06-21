@@ -1,12 +1,97 @@
+import axios from 'axios';
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const AllUsers = () => {
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(()=>{
+        axios.get('http://localhost:5500/getUsers')
+        .then(d=>{
+            setUsers(d.data);
+        })
+    }, [])
+
+
     return (
         <div>
-            <h1>All Users</h1>
-            {/* Add your content here */}
+            <h1 className='lg:ml-20 text-2xl'>All Users</h1>
+
+            <div>
+            <div className="overflow-x-auto lg:mx-20 lg:mt-10 ">
+                <table className="table">
+                    <thead>
+                        <tr className="text-center">
+                            <th></th>
+                            <th>Profile Picture</th>
+                            <th>Name</th>
+                            <th className='text-left'>Email</th>
+                            <th>Make Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            users.map((user, index) => (
+                                <Row 
+                                    user={ user} 
+                                    key={ user._id} 
+                                    index={index} 
+                                />
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
         </div>
     );
 };
 
 export default AllUsers;
+
+
+
+const Row = ({  user, index}) => {
+
+
+
+    const handleMakeAdmin =(id)=>{
+
+        axios.put(`http://localhost:5500/makeAdmin/${user.userEmail}`, { role: 'admin' }, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
+        .then(res=>{
+            Swal.fire({
+                title: `${user.name} is Admin Now`,
+                text: 'Role Changed Successfully!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              });
+        })
+        
+    }
+
+
+    return (
+        <tr className="bg-gray-200 lg:h-20 text-center">
+            <th>{index + 1}</th>
+            <td className="w-[100px] text-blue-800 text-lg text-center"><img className='h-12 lg:ml-2 w-12 rounded-xl' src={user.userImage} alt="" /></td>
+            <td className="w-[400px] text-blue-800 text-lg text-center">{user.name}</td>
+            <td className="w-[400px] text-blue-800 text-lg text-left">{user.userEmail}</td>
+            <td className="w-[400px] text-blue-800 text-lg text-center">
+                {
+                    user.role==='admin' ?
+                    <p className='bg-gray-500 p-2 rounded-lg text-white lg:w-[200px] mx-auto'>Admin</p>:
+                    <button id={`makeAdmin${user._id}`} onClick={()=>handleMakeAdmin(user._id)} className='bg-black text-white p-2 rounded-lg lg:w-[200px] hover:bg-blue-900'>Make Admin</button>
+                    
+                }
+            </td>
+            
+        </tr>
+    );
+};

@@ -11,6 +11,7 @@ const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_ke
 
 const AddArticle = () => {
   const [publishers, setPublishers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ['fetchPublishers'],
@@ -67,6 +68,7 @@ const AddArticle = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Upload image to ImgBB and get the URL
     const formData = new FormData();
@@ -75,15 +77,8 @@ const AddArticle = () => {
     try {
       const response = await axios.post(Image_Hosting_API, formData);
       const image = response.data.data.url;
-
-      // Include the image URL in the article info
       const articleData = { ...articleInfo, image: image };
-
-      // Remove the file from the article data as we have uploaded it
-      // delete articleData.image;
-
       console.log(articleData);
-
 
       // Send article data to server
       const articleResponse = await axios.post('http://localhost:5500/addArticles', articleData, {
@@ -121,6 +116,8 @@ const AddArticle = () => {
       
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -221,8 +218,9 @@ const AddArticle = () => {
         <button
           type="submit"
           className="w-full bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+          disabled={loading}
         >
-          Submit
+          {loading ? 'Loading...' : 'Submit'}
         </button>
       </form>
     </div>

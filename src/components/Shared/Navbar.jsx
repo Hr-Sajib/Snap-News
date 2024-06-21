@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Navbar = () => {
@@ -32,7 +33,11 @@ const Navbar = () => {
     const handleLogOut = () =>{
         logOut()
         .then(() => {
-            console.log('signed out')
+            Swal.fire({
+                title: "Logged Out",
+                icon: "success"
+            });
+            
         }).catch((error) => {
             console.log(error.message);
         });

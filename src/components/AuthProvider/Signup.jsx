@@ -9,6 +9,7 @@ import auth from '../../../firebase.config';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import { convertToISOFormat } from "../../functions";
+import Swal from 'sweetalert2';
 
 
 
@@ -57,6 +58,11 @@ const Signup = () => {
                 ? createUser(auth, email, password)
                     .then(async(res) => {
                       console.log(res.user);
+                      Swal.fire({
+                        title: 'Signed Up',
+                        icon: 'success',
+                        confirmButtonText: 'OK'});
+            
         
                       e.target.name.value = "";
                       e.target.email.value = "";
@@ -74,7 +80,7 @@ const Signup = () => {
                         const userExists = users.find(user => user.userEmail === res.user.email);
                         
                         if (!userExists) {
-                            const newUser = { userEmail: res.user.email, premiumToken: null };
+                            const newUser = { userEmail: res.user.email,userImage: res.user.photoURL,name: res.user.displayName,role:'user', premiumToken: null };
           
                             // Send POST request to add user
                             await axios.post('http://localhost:5500/addUser', newUser, {
@@ -83,7 +89,6 @@ const Signup = () => {
                                 }
                             });
                             console.log('User added successfully.');
-                            // Swal.fire("Information Added");
                         } else {
           
                           //premium token update
@@ -141,6 +146,13 @@ const Signup = () => {
         googleSignUp()
         .then(async(res) => {
             console.log(res.user);
+
+            Swal.fire({
+              title: 'Signed Up',
+              icon: 'success',
+              confirmButtonText: 'OK'});
+
+
             navigate(location?.state ? location.state : '/');
 
 
@@ -153,7 +165,7 @@ const Signup = () => {
                 const userExists = users.find(user => user.userEmail === res.user.email);
                 
                 if (!userExists) {
-                    const newUser = { userEmail: res.user.email, premiumToken: null };
+                    const newUser = { userEmail: res.user.email,userImage: res.user.photoURL,name: res.user.displayName,role:'user', premiumToken: null };
   
                     // Send POST request to add user
                     await axios.post('http://localhost:5500/addUser', newUser, {

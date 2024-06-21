@@ -11,7 +11,7 @@ const Plans = () => {
 
   return (
     <div className="flex justify-center gap-20 mt-10">
-      <div className="border lg:h-[420px] hover:bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
+      <Link to='/subscription'><div className="border lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
         <div className="mb-4 text-center">
           <p className="bg-pink-200 text-pink-800 py-1 px-2 rounded-full inline-block mb-2">Free For 1 Month</p>
           <h3 className="text-xl font-bold">Premium Individual</h3>
@@ -28,9 +28,9 @@ const Plans = () => {
         <p className="text-sm text-gray-600 mt-4">
           Free for 1 month, then $10.99 per month after. Offer only available if you haven't tried Premium before. <Link to="#" className="text-pink-500 underline">Terms apply.</Link>
         </p>
-      </div>
+      </div></Link>
 
-      <div className="border lg:h-[420px] hover:bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
+      <Link to='/subscription'><div className="border lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
         <div className="mb-4 text-center">
           <h3 className="text-xl font-bold">Premium Duo</h3>
           <p className="text-lg font-semibold mt-2">$14.99</p>
@@ -46,9 +46,9 @@ const Plans = () => {
         <p className="text-sm text-gray-600 mt-4">
           For couples who reside at the same address. <Link to="#" className="text-yellow-500 underline">Terms apply.</Link>
         </p>
-      </div>
+      </div></Link>
 
-      <div className="border lg:h-[420px] hover:bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 bg-white shadow-lg">
+      <Link to='/subscription'><div className="border lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
         <div className="mb-4 text-center">
           <h3 className="text-xl font-bold">Premium Family</h3>
           <p className="text-lg font-semibold mt-2">$16.99</p>
@@ -64,7 +64,7 @@ const Plans = () => {
         <p className="text-sm text-gray-600 mt-4">
           For up to 6 family members residing at the same address. <Link to="#" className="text-blue-500 underline">Terms apply.</Link>
         </p>
-      </div>
+      </div></Link>
     </div>
   );
 };

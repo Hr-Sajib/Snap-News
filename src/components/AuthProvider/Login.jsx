@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { convertToISOFormat } from "../../functions";
 import { AuthContext } from "./AuthProvider";
 
@@ -24,6 +25,11 @@ const Login = () => {
 
         loginUser(email, password)
         .then(async res => {
+          Swal.fire({
+            title: 'Logged In',
+            icon: 'success',
+            confirmButtonText: 'OK'});
+
           navigate(location?.state ? location.state : '/');
           
           e.target.email.value = "";
@@ -35,7 +41,7 @@ const Login = () => {
             const userExists = users.find(user => user.userEmail === res.user.email);
             
             if (!userExists) {
-                const newUser = { userEmail: res.user.email, premiumToken: null };
+                const newUser = {  userEmail: res.user.email,userImage: res.user.photoURL,name: res.user.displayName,role:'user', premiumToken: null };
 
                 // Send POST request to add user
                 await axios.post('http://localhost:5500/addUser', newUser, {
@@ -97,6 +103,11 @@ const Login = () => {
       googleSignUp()
       .then(async (res) => {
           console.log(res.user);
+          Swal.fire({
+            title: 'Logged In',
+            icon: 'success',
+            confirmButtonText: 'OK'});
+
           navigate(location?.state ? location.state : '/');
 
           try {
@@ -105,7 +116,7 @@ const Login = () => {
               const userExists = users.find(user => user.userEmail === res.user.email);
               
               if (!userExists) {
-                  const newUser = { userEmail: res.user.email, premiumToken: null };
+                  const newUser = {  userEmail: res.user.email,userImage: res.user.photoURL,name: res.user.displayName,role:'user', premiumToken: null };
 
                   // Send POST request to add user
                   await axios.post('http://localhost:5500/addUser', newUser, {
