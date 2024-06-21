@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { fetchNews } from "../../functions";
 
 const AllAdminArticles = () => {
   const [allNews, setAllNews] = useState([]);
+//   const [showNews, setShowNews] = useState([]);
 
   const { data, isLoading } = useQuery({
     queryKey: ['fetchNews'],
@@ -22,7 +23,7 @@ const AllAdminArticles = () => {
   return (
     <div className="relative bottom-6 right-4">
       {allNews.map(news => (
-        <Article key={news._id} news={news} />
+        <Article key={news._id} news={news} allNews={allNews} setAllNews={setAllNews}/>
       ))}
     </div>
   );
@@ -30,10 +31,18 @@ const AllAdminArticles = () => {
 
 export default AllAdminArticles;
 
-const Article = ({ news }) => {
+
+
+
+
+
+
+
+
+
+const Article = ({ news , allNews, setAllNews}) => {
   const handleApprove = (id) => {
-    axios
-      .put(`http://localhost:5500/approvePost/${id}`, { approval: 'approved' }, {
+    axios.put(`http://localhost:5500/approvePost/${id}`, { approval: 'approved' }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -104,6 +113,67 @@ const Article = ({ news }) => {
       allowOutsideClick: () => !Swal.isLoading()
     });
   };
+
+
+
+  const handleDelete = (id) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:5500/delete/${id}`, {
+                method: "DELETE"
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "This Article has been deleted.",
+                        icon: "success"
+                    });
+                    
+                    // Update UI by removing the deleted article
+                    const remainingArticles = allNews.filter(art => art._id !== id);
+                    setAllNews(remainingArticles);
+                }
+            });
+        }
+    });
+};
+
+
+
+
+const handleMakePremium = (id) => {
+    axios.put(`http://localhost:5500/makePremium/${id}`)
+      .then(d => {
+        console.log(d.data);
+
+        Swal.fire({
+            title: "Made Premium!",
+            text: "This Article is Premium now.",
+            icon: "success"
+        });
+
+
+            document.getElementById(`makePremBtn${id}`).innerText = 'Premium Now';
+            document.getElementById(`makePremBtn${id}`).classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-500');
+            document.getElementById(`makePremBtn${id}`).classList.add('bg-blue-700');
+      })
+      .catch(error => {
+        console.error('Error making post premium:', error);
+      });
+  };
+  
+
+
   
 
   return (
@@ -136,16 +206,20 @@ const Article = ({ news }) => {
         <button
             id={`declineBtn${news._id}`}
             onClick={() => handleDecline(news._id)}
-            className={`hover:bg-red-600 text-white h-12 w-36 rounded-xl ${news.approval.slice(0,8) === 'declined' ? 'bg-gray-500' : 'bg-black'}`}
+            className={`hover:bg-orange-600 text-white h-12 w-36 rounded-xl ${news.approval.slice(0,8) === 'declined' ? 'bg-gray-500' : 'bg-black'}`}
             >
             {news.approval === 'declined' ? 'Declined' : 'Decline'}
         </button>
 
 
-          <button className="bg-black text-white h-12 w-36 rounded-xl">Delete</button>
-          <button className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white h-12 w-36 rounded-xl">Make Premium</button>
+          <button onClick={()=>handleDelete(news._id)} className="bg-black hover:bg-red-600 text-white h-12 w-36 rounded-xl">Delete</button>
+          <button id={`makePremBtn${news._id}`} onClick={()=>handleMakePremium(news._id)} className={`${news.premium == 'no' ? 'bg-gradient-to-r from-cyan-500 to-blue-500':'bg-blue-700'}  text-white h-12 w-36 rounded-xl`}>
+            {news.premium === 'no' ? 'Make Premium' : 'Premium Now'}
+          </button>
         </div>
       </div>
     </div>
   );
 };
+
+
