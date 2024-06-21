@@ -116,14 +116,14 @@ const Row = ({ article, index, showNews, setShowNews }) => {
                     Details
                 </Link>
             </td>
-            <td className={`w-[200px] text-white py-3 ${article.approval[0] == 'a' ? 'bg-green-600':'bg-red-600'}`}>
-                {article.approval.slice(0,8)}
+            <td className={`w-[200px] text-white py-3 ${article.approval[0] === 'a' ? 'bg-green-600' : article.approval === 'no' ? 'bg-yellow-600' : 'bg-red-600'}`}>
+                {article.approval === 'no' ? 'Pending' : article.approval.slice(0, 8)}
                 <br />
-                {
-                    article.approval[0] == 'd' ?
-                    <button onClick={showReason} className="bg-red-100 text-black p-2">Click To See Reason</button> : null
-                }
+                {article.approval[0] === 'd' && (
+                    <button onClick={showReason} className="bg-red-100 text-black p-2">Click To See Reason</button>
+                )}
             </td>
+
             {article.premium === 'yes' ? (
                 <td className="text-center bg-gradient-to-r from-cyan-500 to-blue-500 text-white w-20">
                     Premium
@@ -134,7 +134,7 @@ const Row = ({ article, index, showNews, setShowNews }) => {
                 </td>
             )}
             <td className="pl-10">
-                <Link className="bg-green-700 hover:bg-gray-500 px-5 py-3 text-white" to={`updateArticle/${article._id}`}>
+                <Link to={`updateArticle/${article._id}`} className="bg-green-700 hover:bg-gray-500 px-5 py-3 text-white" to={`updateArticle/${article._id}`}>
                     Update
                 </Link>
             </td>

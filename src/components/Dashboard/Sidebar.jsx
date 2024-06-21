@@ -7,6 +7,16 @@ const Sidebar = () => {
             <ul className="p-4">
                 <li className="mb-4">
                     <NavLink 
+                        to="/dashboard/stats" 
+                        className={({ isActive }) => 
+                            isActive ? "text-blue-300 font-semibold" : "hover:text-gray-400"
+                        }
+                    >
+                        Statistics
+                    </NavLink>
+                </li>
+                <li className="mb-4">
+                    <NavLink 
                         to="/dashboard/all-users" 
                         className={({ isActive }) => 
                             isActive ? "text-blue-300 font-semibold" : "hover:text-gray-400"

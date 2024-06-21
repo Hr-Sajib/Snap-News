@@ -27,8 +27,8 @@ import Payment from './components/Payment.jsx';
 import PremiumArticles from './components/PremiumArticles.jsx';
 import MyArticles from './components/MyArticles.jsx';
 import MyProfile from './components/MyProfile.jsx';
-
-
+import UpdateArticle from './components/UpdateArticle.jsx';
+import PieChart from './components/Dashboard/PieChart.jsx';
 
 
 
@@ -81,6 +81,10 @@ const router = createBrowserRouter([
             element: <AllUsers />
           },
           {
+            path: "stats",
+            element: <PieChart />
+          },
+          {
             path: "all-articles",
             element: <AllAdminArticles />
           },
@@ -93,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: "/my-articles",
         element: <PrivateRoute><MyArticles /></PrivateRoute>
+      },
+      {
+        path: "/my-articles/updateArticle/:id",
+        element: <UpdateArticle/>
       },
       {
         path: "/my-articles/details/:id",
@@ -111,7 +119,7 @@ const router = createBrowserRouter([
       {
         path: "/premium-articles/details/:id",
         loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
-        element: <ArticleDetails/>
+        element: <PrivateRoute><ArticleDetails/></PrivateRoute>
       },
       
 

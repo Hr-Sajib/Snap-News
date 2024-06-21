@@ -47,11 +47,25 @@ const Navbar = () => {
     const navlinks = 
         <>
             <li className="mr-1"><NavLink to="/">Home</NavLink></li>
-            <li className="mr-1"><NavLink to="/add-articles">Add Articles</NavLink></li>
+            {   user ? 
+                <li className="mr-1"><NavLink to="/add-articles">Add Articles</NavLink></li> : null
+            }
             <li className="mr-1"><NavLink to="/all-articles">All Articles</NavLink></li>
-            <li className="mr-1"><NavLink to="/subscription">Subscription</NavLink></li>
-            <li className="mr-1"><NavLink to="/dashboard">Dashboard</NavLink></li>
-            <li className="mr-1"><NavLink to="/my-articles">My Articles</NavLink></li>
+            {   user ? 
+                <li className="mr-1"><NavLink to="/subscription">Subscription</NavLink></li>  : null
+            }
+            {
+                (savedUser?.role==='admin') ?
+                <li className="mr-1"><NavLink to="/dashboard">Dashboard</NavLink></li> :
+                null
+            
+            }
+            {   user ? 
+                <li className="mr-1"><NavLink to="/subscription">Subscription</NavLink></li>  : null
+            }
+            {   user ? 
+                <li className="mr-1"><NavLink to="/my-articles">My Articles</NavLink></li> : null
+            }
             {
                 (savedUser?.premiumToken) ? 
                 <li className="mr-1"><NavLink to="/premium-articles">Premium Articles</NavLink></li> :

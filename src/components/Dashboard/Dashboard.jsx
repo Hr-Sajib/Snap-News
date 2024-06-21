@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import AllUsers from './AllUsers'; 
 import AllAdminArticles from './AllAdminArticles';
 import AddPublisher from './AddPublisher';
+import PieChart from './PieChart';
 
 const Dashboard = () => {
     return (
@@ -11,6 +12,7 @@ const Dashboard = () => {
             <Sidebar />
             <div className="flex-1 p-6">
                 <Routes>
+                    <Route path="stats" element={<PieChart />} />
                     <Route path="all-users" element={<AllUsers />} />
                     <Route path="all-articles" element={<AllAdminArticles />} />
                     <Route path="add-publisher" element={<AddPublisher />} />

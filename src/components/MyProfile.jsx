@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthProvider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const MyProfile = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const MyProfile = () => {
         favoriteCategories: []
     });
 
+    const [loading, setLoading] = useState(false);
     const [premium, setPremium] = useState(null);
 
     const { user } = useContext(AuthContext);
@@ -31,7 +33,7 @@ const MyProfile = () => {
                         language: data.language || 'english',
                         favoriteCategories: data.favoriteCategories || []
                     });
-                    setPremium(data.premiumToken)
+                    setPremium(data.premiumToken);
                 })
                 .catch(error => {
                     console.error('Error fetching user data:', error);
@@ -55,8 +57,8 @@ const MyProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         const formInputData = { ...formData };
-        console.log(formInputData);
 
         axios.put(`http://localhost:5500/updateUserInfo/${email}`, formInputData, {
             headers: {
@@ -65,9 +67,24 @@ const MyProfile = () => {
         })
             .then(response => {
                 console.log(response.data);
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Profile updated successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             })
             .catch(error => {
                 console.error('Error updating user data:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error updating your profile. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            })
+            .finally(() => {
+                setLoading(false);
             });
     };
 
@@ -75,11 +92,9 @@ const MyProfile = () => {
         <div className="max-w-2xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-6">Profile Information</h2>
 
-
             <div className='my-5 text-blue-500'>
-                <p>You can provide additional information through this from to be saved in the Database User Information</p>
+                <p>You can provide additional information through this form to be saved in the Database User Information</p>
             </div>
-
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -91,7 +106,6 @@ const MyProfile = () => {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
                     />
                 </div>
 
@@ -104,7 +118,6 @@ const MyProfile = () => {
                         value={formData.contactEmail}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
                     />
                 </div>
 
@@ -117,7 +130,6 @@ const MyProfile = () => {
                         value={formData.age}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
                     />
                 </div>
 
@@ -130,7 +142,6 @@ const MyProfile = () => {
                         value={formData.address}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
                     />
                 </div>
 
@@ -151,15 +162,12 @@ const MyProfile = () => {
 
                 <div className="mb-4">
                     <label htmlFor="subscriptionStatus" className="block text-sm font-medium mb-2">Subscription Status</label>
-                    <div className='flex gap-2 items-center '>
-                        {
-                            (premium) ?
+                    <div className='flex gap-2 items-center'>
+                        {premium ? (
                             <p className='bg-blue-400 p-2 text-white rounded-lg w-36 text-center'>Premium Mode</p>
-                            :
+                        ) : (
                             <p className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
-
-
-                        }
+                        )}
                         <Link to='/subscription' className='bg-green-200 p-2 text-gray-700 rounded-lg w-[200px] text-center'>Take New Subscription</Link>
                     </div>
                 </div>
@@ -188,11 +196,11 @@ const MyProfile = () => {
                 <button
                     type="submit"
                     className="w-full mt-5 bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+                    disabled={loading}
                 >
-                    Save & Update
+                    {loading ? 'Loading...' : 'Save & Update'}
                 </button>
             </form>
-
         </div>
     );
 };
