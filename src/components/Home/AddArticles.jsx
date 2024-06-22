@@ -123,6 +123,7 @@ const AddArticle = () => {
       const articleResponse = await axios.post('https://snapnews-server.vercel.app/addArticles', articleData, {
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Bearer ${localStorage.getItem('access-token')}`
         },
       });
       console.log('Article Info:', articleResponse.data);

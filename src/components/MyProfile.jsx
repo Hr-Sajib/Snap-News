@@ -25,7 +25,11 @@ const MyProfile = () => {
 
     useEffect(() => {
         if (email) {
-            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`)
+            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`,{
+                headers: {
+                  authorization: `Bearer ${localStorage.getItem('access-token')}`
+                },
+              })
                 .then(response => {
                     const data = response.data;
                     setFormData({
@@ -66,6 +70,8 @@ const MyProfile = () => {
         axios.put(`https://snapnews-server.vercel.app/updateUserInfo/${email}`, formInputData, {
             headers: {
                 'Content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('access-token')}`
+
             },
         })
             .then(response => {

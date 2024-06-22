@@ -1,23 +1,39 @@
-export const fetchNews = async()=>{
-    const res = await fetch('https://snapnews-server.vercel.app/getArticles');
+import axios from 'axios';
 
-    const news = await res.json();
+export const fetchNews = async () => {
+  try {
+    const res = await axios.get('https://snapnews-server.vercel.app/getArticles')
+    const news = res.data;
     return news;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    throw error;
+  }
 }
 
-export const fetchPublishers = async()=>{
-    const res = await fetch('https://snapnews-server.vercel.app/getPublishers');
 
-    const Publishers = await res.json();
-    return Publishers;
+export const fetchPublishers = async () => {
+  try {
+    const res = await axios.get('https://snapnews-server.vercel.app/getPublishers');
+    const publishers = res.data;
+    return publishers;
+  } catch (error) {
+    console.error('Error fetching publishers:', error);
+    throw error;
+  }
 }
 
-export const fetchUsers = async()=>{
-    const res = await fetch('https://snapnews-server.vercel.app/getUsers');
-
-    const Users = await res.json();
-    return Users;
+export const fetchUsers = async () => {
+  try {
+    const res = await axios.get('https://snapnews-server.vercel.app/getUsers');
+    const users = res.data;
+    return users;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
 }
+
 
 
 

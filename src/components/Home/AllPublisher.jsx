@@ -32,7 +32,7 @@ const AllPublisher = () => {
       <ul className="divide-y divide-gray-200">
         {publishers.map((publisher, index) => (
           <li key={index} className="py-2">
-            <div className='flex gap-1 items-center'>
+            <div data-aos="fade-down" className='flex gap-1 items-center'>
               <img src={publisher.logo} className="h-10 w-10 rounded-full border" alt="" />
               <span className="text-lg">{publisher.name}</span>
             </div>

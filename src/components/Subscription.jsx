@@ -35,11 +35,12 @@ const Subscription = () => {
 
   const handleSubscribeClick = () => {
     const currentTime = new Date().toISOString();
-    const premiumToken = addDurationToTime(currentTime, subscriptionPeriod); // Concatenate currentTime and subscriptionPeriod
+    const premiumToken = addDurationToTime(currentTime, subscriptionPeriod); 
 
     axios.put(`https://snapnews-server.vercel.app/updateUser/${email}`, { premiumToken }, {
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('access-token')}`
       },
     })
     .then(data => {

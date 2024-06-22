@@ -44,6 +44,8 @@ const Article = ({ news, allNews, setAllNews }) => {
     axios.put(`https://snapnews-server.vercel.app/approvePost/${id}`, { approval: 'approved' }, {
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('access-token')}`
+
       },
     })
       .then(data => {
@@ -80,6 +82,8 @@ const Article = ({ news, allNews, setAllNews }) => {
           .put(`https://snapnews-server.vercel.app/declinePost/${id}`, { approval: `declined/reason:${reason}` }, {
             headers: {
               'Content-Type': 'application/json',
+              authorization: `Bearer ${localStorage.getItem('access-token')}`
+
             },
           })
           .then(data => {
@@ -125,7 +129,10 @@ const Article = ({ news, allNews, setAllNews }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(`https://snapnews-server.vercel.app/delete/${id}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('access-token')}`
+          },
         })
           .then(res => res.json())
           .then(data => {
@@ -146,24 +153,29 @@ const Article = ({ news, allNews, setAllNews }) => {
   };
 
   const handleMakePremium = (id) => {
-    axios.put(`https://snapnews-server.vercel.app/makePremium/${id}`)
-      .then(d => {
-        console.log(d.data);
-
-        Swal.fire({
-          title: 'Made Premium!',
-          text: 'This Article is Premium now.',
-          icon: 'success'
-        });
-
-        document.getElementById(`makePremBtn${id}`).innerText = 'Premium Now';
-        document.getElementById(`makePremBtn${id}`).classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-500');
-        document.getElementById(`makePremBtn${id}`).classList.add('bg-blue-700');
-      })
-      .catch(error => {
-        console.error('Error making post premium:', error);
+    axios.put(`https://snapnews-server.vercel.app/makePremium/${id}`, {}, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('access-token')}`
+      }
+    })
+    .then(d => {
+      console.log(d.data);
+  
+      Swal.fire({
+        title: 'Made Premium!',
+        text: 'This Article is Premium now.',
+        icon: 'success'
       });
+  
+      document.getElementById(`makePremBtn${id}`).innerText = 'Premium Now';
+      document.getElementById(`makePremBtn${id}`).classList.remove('bg-gradient-to-r', 'from-cyan-500', 'to-blue-500');
+      document.getElementById(`makePremBtn${id}`).classList.add('bg-blue-700');
+    })
+    .catch(error => {
+      console.error('Error making post premium:', error);
+    });
   };
+  
 
 
   useEffect(()=>{
@@ -202,7 +214,7 @@ const Article = ({ news, allNews, setAllNews }) => {
             onClick={() => handleDecline(news._id)}
             className={`hover:bg-orange-600 text-white h-12 w-36 rounded-xl ${news.approval.slice(0, 8) === 'declined' ? 'bg-gray-500' : 'bg-black'}`}
           >
-            {news.approval === 'declined' ? 'Declined' : 'Decline'}
+            {news.approval.slice(0,8) === 'declined' ? 'Declined' : 'Decline'}
           </button>
 
           <button onClick={() => handleDelete(news._id)} className="bg-black hover:bg-red-600 text-white h-12 w-36 rounded-xl">Delete</button>

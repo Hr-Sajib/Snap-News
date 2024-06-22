@@ -76,6 +76,7 @@ const Row = ({ user, index }) => {
     axios.put(`https://snapnews-server.vercel.app/makeAdmin/${user.userEmail}`, { role: 'admin' }, {
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('access-token')}`
       },
     })
       .then(res => {

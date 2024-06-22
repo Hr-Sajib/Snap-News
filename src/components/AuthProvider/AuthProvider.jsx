@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import  auth from "../../../firebase.config"
@@ -36,8 +37,19 @@ const AuthProvider = ({children}) => {
      useEffect(()=>{
          const unsubscribe = onAuthStateChanged(auth, currentUser=>{
              setUser(currentUser);
-            //  console.log(currentUser);
              setLoader(false);
+             if(currentUser){
+                const curUser = currentUser.email;
+                axios.post('https://snapnews-server.vercel.app/jwt', {curUser})
+                .then(res=>{
+                    if(res.data){
+                        localStorage.setItem('access-token', res.data);
+                    }
+                })
+             } 
+             else{
+                localStorage.removeItem('access-token');
+             }
          })
          return()=>{
              unsubscribe();
@@ -49,7 +61,6 @@ const AuthProvider = ({children}) => {
          setLoader(true);
          return signOut(auth);
      }
-
 
 
 

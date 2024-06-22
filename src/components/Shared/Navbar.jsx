@@ -12,13 +12,16 @@ const Navbar = () => {
     const {user, logOut} = useContext(AuthContext);
     const email = user?.email;
 
+
     const [savedUser, setSavedUser] = useState(null);
 
     useEffect(() => {
         if (email) {
-            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`, {
+            axios.get(`http://localhost:5500/getUser/${email}`, {
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('access-token')}`
+
                 },
             })
             .then(data => {

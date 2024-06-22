@@ -7,6 +7,7 @@ import { fetchNews } from "../functions";
 import { AuthContext } from "./AuthProvider/AuthProvider";
 import Aos from "aos";
 import 'aos/dist/aos.css';
+import axios from "axios";
 
 const MyArticles = () => {
     const [allNews, setAllNews] = useState([]);
@@ -16,7 +17,20 @@ const MyArticles = () => {
 
     const { data: newsData, isLoading: isNewsLoading } = useQuery({
         queryKey: ['fetchNews'],
-        queryFn: fetchNews,
+        queryFn: async () => {
+                try {
+                    const res = await axios.get(`https://snapnews-server.vercel.app/getArticles/${email}`,{
+                        headers: {
+                          authorization: `Bearer ${localStorage.getItem('access-token')}`
+                        },
+                      })
+                    const news = res.data;
+                    return news;
+                } catch (error) {
+                    console.error('Error fetching news:', error);
+                    throw error;
+                }
+            },
     });
 
     useEffect(() => {

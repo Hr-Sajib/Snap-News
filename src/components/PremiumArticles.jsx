@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { PiStarFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { fetchNews } from "../functions";
 import Aos from "aos";
 import 'aos/dist/aos.css'
+import axios from "axios";
 
 const PremiumArticles = () => {
 
@@ -13,7 +13,20 @@ const PremiumArticles = () => {
     
         const { data: newsData, isLoading: isNewsLoading } = useQuery({
             queryKey: ['fetchNews'],
-            queryFn: fetchNews,
+            queryFn: async () => {
+                try {
+                    const res = await axios.get(`https://snapnews-server.vercel.app/getPremArticles`,{
+                        headers: {
+                          authorization: `Bearer ${localStorage.getItem('access-token')}`
+                        },
+                      })
+                    const news = res.data;
+                    return news;
+                } catch (error) {
+                    console.error('Error fetching news:', error);
+                    throw error;
+                }
+            }
         });
     
         useEffect(() => {

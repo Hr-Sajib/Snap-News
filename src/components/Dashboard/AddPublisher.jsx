@@ -41,7 +41,9 @@ const AddPublisher = () => {
                 fetch('https://snapnews-server.vercel.app/addPublisher', {
                     method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${localStorage.getItem('access-token')}`
+
                     },
                     body: JSON.stringify(publisher)
                 })

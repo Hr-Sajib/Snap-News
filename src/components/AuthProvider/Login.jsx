@@ -103,7 +103,6 @@ const Login = () => {
     const handleSignIpWithGoogle =()=>{
       googleSignUp()
       .then(async (res) => {
-          console.log(res.user);
           Swal.fire({
             title: 'Logged In',
             icon: 'success',
@@ -192,7 +191,7 @@ const Login = () => {
                   placeholder='Password' 
                   required/> <br />
                 
-                <div onClick={()=>setPasswordShow(!passwordShow)} className='w-5 flex justify-end relative lg:left-[460px] left-[280px] lg:bottom-[35px] bottom-[35px]'>
+                <div onClick={()=>setPasswordShow(!passwordShow)} className='w-5 flex justify-end relative lg:left-[460px] left-[280px] lg:bottom-[27px] bottom-[35px]'>
                     { passwordShow ? <LuEyeOff/> : <LuEye/> }
                 </div>          
                 
