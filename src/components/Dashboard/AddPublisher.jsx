@@ -36,7 +36,7 @@ const AddPublisher = () => {
                 const publisher = { ...publisherInfo, 'logo': logoUrl };
 
                 // Send data to server
-                fetch('http://localhost:5500/addPublisher', {
+                fetch('https://snapnews-server.vercel.app/addPublisher', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

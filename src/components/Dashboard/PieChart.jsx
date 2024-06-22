@@ -10,7 +10,7 @@ const PieChart = () => {
     const [lineChartData, setLineChartData] = useState([['Publisher', 'Total Views']]);
 
     useEffect(() => {
-        axios.get('http://localhost:5500/getArticles')
+        axios.get('https://snapnews-server.vercel.app/getArticles')
             .then(response => {
                 setArticles(response.data);
             })
@@ -20,7 +20,7 @@ const PieChart = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5500/getPublishers')
+        axios.get('https://snapnews-server.vercel.app/getPublishers')
             .then(response => {
                 const pubNames = response.data.map(d => d.name);
                 setPublishers(pubNames);

@@ -81,7 +81,7 @@ const Row = ({ article, index, showNews, setShowNews }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5500/delete/${id}`, {
+                fetch(`https://snapnews-server.vercel.app/delete/${id}`, {
                     method: "DELETE"
                 })
                 .then(res => res.json())

@@ -75,7 +75,7 @@ const Signup = () => {
 
 
                       try {
-                        const response = await axios.get('http://localhost:5500/getUsers');
+                        const response = await axios.get('https://snapnews-server.vercel.app/getUsers');
                         const users = response.data;
                         const userExists = users.find(user => user.userEmail === res.user.email);
                         
@@ -83,7 +83,7 @@ const Signup = () => {
                             const newUser = { userEmail: res.user.email,userImage: photoUrl,name: name,role:'user', premiumToken: null };
           
                             // Send POST request to add user
-                            await axios.post('http://localhost:5500/addUser', newUser, {
+                            await axios.post('https://snapnews-server.vercel.app/addUser', newUser, {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
@@ -108,7 +108,7 @@ const Signup = () => {
                         
                             // Compare the two dates
                             if(date2 > date1 !== true){
-                              axios.put(`http://localhost:5500/updateUser/${res.user.email}`, { premiumToken:null }, {
+                              axios.put(`https://snapnews-server.vercel.app/updateUser/${res.user.email}`, { premiumToken:null }, {
                                 headers: {
                                   'Content-Type': 'application/json',
                                 },
@@ -160,7 +160,7 @@ const Signup = () => {
             console.log('logged in successfully..');
 
             try {
-                const response = await axios.get('http://localhost:5500/getUsers');
+                const response = await axios.get('https://snapnews-server.vercel.app/getUsers');
                 const users = response.data;
                 const userExists = users.find(user => user.userEmail === res.user.email);
                 
@@ -168,7 +168,7 @@ const Signup = () => {
                     const newUser = { userEmail: res.user.email,userImage: res.user.photoURL,name: res.user.displayName,role:'user', premiumToken: null };
   
                     // Send POST request to add user
-                    await axios.post('http://localhost:5500/addUser', newUser, {
+                    await axios.post('https://snapnews-server.vercel.app/addUser', newUser, {
                         headers: {
                             'Content-Type': 'application/json'
                         }
@@ -194,7 +194,7 @@ const Signup = () => {
                 
                     // Compare the two dates
                     if(date2 > date1 !== true){
-                      axios.put(`http://localhost:5500/updateUser/${res.user.email}`, { premiumToken:null }, {
+                      axios.put(`https://snapnews-server.vercel.app/updateUser/${res.user.email}`, { premiumToken:null }, {
                         headers: {
                           'Content-Type': 'application/json',
                         },

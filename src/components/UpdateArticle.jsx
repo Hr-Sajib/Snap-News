@@ -31,7 +31,7 @@ const UpdateArticle = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(`http://localhost:5500/getArticle/${id}`)
+    axios.get(`https://snapnews-server.vercel.app/getArticle/${id}`)
       .then(response => {
         setArticle(response.data);
       })
@@ -78,7 +78,7 @@ const UpdateArticle = () => {
     const updatedArticle = { ...article, image: imageUrl };
 
     try {
-      await axios.put(`http://localhost:5500/updateArticle/${id}`, updatedArticle, {
+      await axios.put(`https://snapnews-server.vercel.app/updateArticle/${id}`, updatedArticle, {
         headers: {
           'Content-Type': 'application/json',
         },

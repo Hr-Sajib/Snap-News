@@ -60,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-articles/details/:id",
-        loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
+        loader: ({params}) => fetch(`https://snapnews-server.vercel.app/getarticle/${params.id}`),
         element: <ArticleDetails/>
       },
       {
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-articles/details/:id",
-        loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
+        loader: ({params}) => fetch(`https://snapnews-server.vercel.app/getarticle/${params.id}`),
         element: <ArticleDetails/>
       },
       {
@@ -118,7 +118,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/premium-articles/details/:id",
-        loader: ({params}) => fetch(`http://localhost:5500/getarticle/${params.id}`),
+        loader: ({params}) => fetch(`https://snapnews-server.vercel.app/getarticle/${params.id}`),
         element: <PrivateRoute><ArticleDetails/></PrivateRoute>
       },
       

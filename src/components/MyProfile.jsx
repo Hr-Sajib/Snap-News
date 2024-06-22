@@ -23,7 +23,7 @@ const MyProfile = () => {
 
     useEffect(() => {
         if (email) {
-            axios.get(`http://localhost:5500/getUser/${email}`)
+            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`)
                 .then(response => {
                     const data = response.data;
                     setFormData({
@@ -61,7 +61,7 @@ const MyProfile = () => {
         setLoading(true);
         const formInputData = { ...formData };
 
-        axios.put(`http://localhost:5500/updateUserInfo/${email}`, formInputData, {
+        axios.put(`https://snapnews-server.vercel.app/updateUserInfo/${email}`, formInputData, {
             headers: {
                 'Content-Type': 'application/json',
             },

@@ -16,7 +16,7 @@ const Navbar = () => {
 
     useEffect(() => {
         if (email) {
-            axios.get(`http://localhost:5500/getUser/${email}`, {
+            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

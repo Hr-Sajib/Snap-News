@@ -1,19 +1,19 @@
 export const fetchNews = async()=>{
-    const res = await fetch('http://localhost:5500/getArticles');
+    const res = await fetch('https://snapnews-server.vercel.app/getArticles');
 
     const news = await res.json();
     return news;
 }
 
 export const fetchPublishers = async()=>{
-    const res = await fetch('http://localhost:5500/getPublishers');
+    const res = await fetch('https://snapnews-server.vercel.app/getPublishers');
 
     const Publishers = await res.json();
     return Publishers;
 }
 
 export const fetchUsers = async()=>{
-    const res = await fetch('http://localhost:5500/getUsers');
+    const res = await fetch('https://snapnews-server.vercel.app/getUsers');
 
     const Users = await res.json();
     return Users;

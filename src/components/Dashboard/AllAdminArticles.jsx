@@ -40,7 +40,7 @@ export default AllAdminArticles;
 
 const Article = ({ news, allNews, setAllNews }) => {
   const handleApprove = (id) => {
-    axios.put(`http://localhost:5500/approvePost/${id}`, { approval: 'approved' }, {
+    axios.put(`https://snapnews-server.vercel.app/approvePost/${id}`, { approval: 'approved' }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -76,7 +76,7 @@ const Article = ({ news, allNews, setAllNews }) => {
       showLoaderOnConfirm: true,
       preConfirm: (reason) => {
         return axios
-          .put(`http://localhost:5500/declinePost/${id}`, { approval: `declined/reason:${reason}` }, {
+          .put(`https://snapnews-server.vercel.app/declinePost/${id}`, { approval: `declined/reason:${reason}` }, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -123,7 +123,7 @@ const Article = ({ news, allNews, setAllNews }) => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5500/delete/${id}`, {
+        fetch(`https://snapnews-server.vercel.app/delete/${id}`, {
           method: 'DELETE'
         })
           .then(res => res.json())
@@ -145,7 +145,7 @@ const Article = ({ news, allNews, setAllNews }) => {
   };
 
   const handleMakePremium = (id) => {
-    axios.put(`http://localhost:5500/makePremium/${id}`)
+    axios.put(`https://snapnews-server.vercel.app/makePremium/${id}`)
       .then(d => {
         console.log(d.data);
 

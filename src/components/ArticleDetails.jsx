@@ -9,7 +9,7 @@ const ArticleDetails = () => {
     useEffect(() => {
         const updateViews = async () => {
             try {
-                const response = await fetch(`http://localhost:5500/updateviews/${id}`, {
+                const response = await fetch(`https://snapnews-server.vercel.app/updateviews/${id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

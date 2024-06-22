@@ -68,7 +68,7 @@ const Allnewsicles = () => {
         const searchText = e.target.searchText.value;
 
         // server call
-        axios.get(`http://localhost:5500/getSearchedArticles/${searchText}`)
+        axios.get(`https://snapnews-server.vercel.app/getSearchedArticles/${searchText}`)
         .then(res => {
             setShowNews(res.data);
         })
@@ -85,7 +85,7 @@ const Allnewsicles = () => {
 
     useEffect(() => {
         if (email) {
-            axios.get(`http://localhost:5500/getUser/${email}`, {
+            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

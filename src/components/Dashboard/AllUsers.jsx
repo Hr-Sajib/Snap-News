@@ -9,7 +9,7 @@ const AllUsers = () => {
   const usersPerPage = 3; // Number of users to show per page
 
   useEffect(() => {
-    axios.get('http://localhost:5500/getUsers')
+    axios.get('https://snapnews-server.vercel.app/getUsers')
       .then(d => {
         setUsers(d.data);
       })
@@ -63,7 +63,7 @@ export default AllUsers;
 
 const Row = ({ user, index }) => {
   const handleMakeAdmin = (id) => {
-    axios.put(`http://localhost:5500/makeAdmin/${user.userEmail}`, { role: 'admin' }, {
+    axios.put(`https://snapnews-server.vercel.app/makeAdmin/${user.userEmail}`, { role: 'admin' }, {
       headers: {
         'Content-Type': 'application/json',
       },

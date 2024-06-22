@@ -38,7 +38,7 @@ const AddArticle = () => {
 
   const [allUsers, setAllUsers] = useState([]);
   useEffect(()=>{
-    axios.get('http://localhost:5500/getUsers')
+    axios.get('https://snapnews-server.vercel.app/getUsers')
     .then(d=>{
         setAllUsers(d.data);
         })
@@ -118,7 +118,7 @@ const AddArticle = () => {
       console.log(articleData);
 
       // Send article data to server
-      const articleResponse = await axios.post('http://localhost:5500/addArticles', articleData, {
+      const articleResponse = await axios.post('https://snapnews-server.vercel.app/addArticles', articleData, {
         headers: {
           'Content-Type': 'application/json',
         },
