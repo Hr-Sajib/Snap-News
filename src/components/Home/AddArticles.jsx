@@ -1,18 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
-import { fetchPublishers } from '../../functions';
+import { fetchNews, fetchPublishers, fetchUsers } from '../../functions';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Image_Hosting_key = import.meta.env.VITE_Image_Hosting_key;
 const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_key}`;
 
 const AddArticle = () => {
-  const [publishers, setPublishers] = useState([]);
+  const [publishers, setPublishers] = useState([]); 
   const [loading, setLoading] = useState(false);
-
   const { data, isLoading } = useQuery({
     queryKey: ['fetchPublishers'],
     queryFn: fetchPublishers,
@@ -23,6 +23,26 @@ const AddArticle = () => {
       setPublishers(data);
     }
   }, [data]);
+
+  const [allNews, setAllNews] = useState([]);
+  const { data: newsData, isLoading: isNewsLoading } = useQuery({
+    queryKey: ['fetchNews'],
+    queryFn: fetchNews,
+    });
+
+    useEffect(() => {
+        if (newsData) {
+            setAllNews(newsData);
+        }
+    }, [newsData]);
+
+  const [allUsers, setAllUsers] = useState([]);
+  useEffect(()=>{
+    axios.get('http://localhost:5500/getUsers')
+    .then(d=>{
+        setAllUsers(d.data);
+        })
+    }, [])
 
   const [articleInfo, setArticleInfo] = useState({
     title: '',
@@ -69,6 +89,23 @@ const AddArticle = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    // Check if the user has already posted an article
+
+    const userArticles = allNews.filter(article => article.authorEmail === user.email);
+    const currentUser = allUsers.find(u => u.userEmail === user.email);
+
+    if (userArticles.length >= 1 && !currentUser.premiumToken) {
+     
+      Swal.fire({
+        title: 'Post Limit Ended',
+        text: 'You have already posted an article. Upgrade to premium to post more articles.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+      setLoading(false);
+      return;
+    }
 
     // Upload image to ImgBB and get the URL
     const formData = new FormData();
@@ -123,6 +160,9 @@ const AddArticle = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-blue-50 rounded-lg">
+            <Helmet>
+                 <title>SnapNews Add Article</title>
+            </Helmet>
       <h2 className="text-xl font-semibold mb-4">Add New Article</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">

@@ -8,6 +8,9 @@ import Trending from './Trending';
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                 <title>SnapNews Home</title>
+            </Helmet>
             <Trending/>
             <AllPublisher/>
             <Plans/>

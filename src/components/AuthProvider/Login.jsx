@@ -1,6 +1,7 @@
 import { async } from "@firebase/util";
 import axios from "axios";
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { FaGoogle } from "react-icons/fa";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -176,6 +177,10 @@ const Login = () => {
 
     return (
         <div>
+
+      <Helmet>
+          <title>SnapNews Login</title>
+      </Helmet>
              <div>
               <p className='text-2xl text-center font-bold text-blue-400'>Log In</p>
             <div className='lg:w-[600px] flex flex-col items-center mb-2 pt-10 lg:p-5 p-3 pb-8 mx-2 lg:mt-10 rounded-xl bg-gray-200 lg:mx-auto animate__animated animate__zoomIn'>

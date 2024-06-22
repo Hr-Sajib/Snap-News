@@ -80,7 +80,7 @@ const Signup = () => {
                         const userExists = users.find(user => user.userEmail === res.user.email);
                         
                         if (!userExists) {
-                            const newUser = { userEmail: res.user.email,userImage: res.user.photoURL,name: res.user.displayName,role:'user', premiumToken: null };
+                            const newUser = { userEmail: res.user.email,userImage: photoUrl,name: name,role:'user', premiumToken: null };
           
                             // Send POST request to add user
                             await axios.post('http://localhost:5500/addUser', newUser, {
@@ -263,7 +263,7 @@ const Signup = () => {
                 <br />
                 <div
                     onClick={() => setPasswordShow(!passwordShow)}
-                    className="w-5 flex justify-end relative lg:left-[460px] left-[280px] bottom-[35px]"
+                    className="w-5 flex justify-end relative lg:left-[460px] left-[280px] bottom-[27px]"
                 >
                     {passwordShow ? <LuEyeOff /> : <LuEye />}
                 </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from './AuthProvider/AuthProvider';
 import { addDurationToTime } from '../functions';
+import { Helmet } from 'react-helmet-async';
 
 const Subscription = () => {
   const [subscriptionPeriod, setSubscriptionPeriod] = useState({ days: 0, hours: 0, minutes: 1, seconds: 0 });
@@ -59,6 +60,9 @@ const Subscription = () => {
 
   return (
     <div className="flex items-center p-6 mb-32 lg:mt-[80px] justify-center gap-10 border border-black rounded-xl lg:mx-[300px]">
+      <Helmet>
+                 <title>SnapNews Subscription</title>
+      </Helmet>
       <img className="lg:h-[300px] rounded-xl" src="https://i.ibb.co/n3K7KQ2/sub.png" alt="Subscribe Banner" />
       <div className="w-full border max-w-md bg-white p-6 rounded-xl shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Choose Your Subscription Plan</h2>

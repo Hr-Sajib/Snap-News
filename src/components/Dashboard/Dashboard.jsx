@@ -5,10 +5,14 @@ import AllUsers from './AllUsers';
 import AllAdminArticles from './AllAdminArticles';
 import AddPublisher from './AddPublisher';
 import PieChart from './PieChart';
+import { Helmet } from 'react-helmet-async';
 
 const Dashboard = () => {
     return (
         <div className="flex mx-20">
+            <Helmet>
+                 <title>SnapNews Admin</title>
+            </Helmet>
             <Sidebar />
             <div className="flex-1 p-6">
                 <Routes>

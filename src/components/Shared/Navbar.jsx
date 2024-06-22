@@ -61,9 +61,6 @@ const Navbar = () => {
             
             }
             {   user ? 
-                <li className="mr-1"><NavLink to="/subscription">Subscription</NavLink></li>  : null
-            }
-            {   user ? 
                 <li className="mr-1"><NavLink to="/my-articles">My Articles</NavLink></li> : null
             }
             {

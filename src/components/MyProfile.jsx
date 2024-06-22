@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const MyProfile = () => {
     const [formData, setFormData] = useState({
@@ -90,6 +91,9 @@ const MyProfile = () => {
 
     return (
         <div className="max-w-2xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
+            <Helmet>
+                 <title>SnapNews My Profile</title>
+            </Helmet>
             <h2 className="text-2xl font-semibold mb-6">Profile Information</h2>
 
             <div className='my-5 text-blue-500'>

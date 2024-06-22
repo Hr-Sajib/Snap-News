@@ -5,6 +5,7 @@ import { fetchNews, fetchPublishers } from '../functions';
 import { PiStarFill } from "react-icons/pi";
 import axios from 'axios';
 import { AuthContext } from './AuthProvider/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 const Allnewsicles = () => {
     // Load news
@@ -105,6 +106,9 @@ const Allnewsicles = () => {
     return (
         showNews.length > 0 ? (
             <div>
+                <Helmet>
+                 <title>SnapNews All Articles</title>
+                </Helmet>
                 <div className='h-20 mx-24 rounded-xl flex items-center justify-between'>
                     <div className='ml-3'>
                         <form onSubmit={handleFilter}>

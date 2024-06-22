@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { fetchNews } from "../functions";
@@ -30,6 +31,9 @@ const MyArticles = () => {
 
     return (
         <div>
+            <Helmet>
+                 <title>SnapNews My Articles</title>
+            </Helmet>
             <div className="overflow-x-auto lg:mx-20 lg:mt-10 ">
                 <table className="table">
                     <thead>
