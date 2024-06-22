@@ -103,6 +103,7 @@ const Login = () => {
     const handleSignIpWithGoogle =()=>{
       googleSignUp()
       .then(async (res) => {
+
           Swal.fire({
             title: 'Logged In',
             icon: 'success',

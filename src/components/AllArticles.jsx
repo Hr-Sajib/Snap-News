@@ -91,10 +91,12 @@ const Allnewsicles = () => {
             axios.get(`https://snapnews-server.vercel.app/getUser/${email}`, {
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('access-token')}`
                 },
             })
             .then(data => {
                 setSavedUser(data.data);
+                
             })
             .catch(error => {
                 console.error("Error fetching user data:", error);
@@ -108,9 +110,6 @@ const Allnewsicles = () => {
 
 
 
-
-
-  
 
 
     return (

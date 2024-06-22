@@ -83,6 +83,7 @@ const UpdateArticle = () => {
       await axios.put(`https://snapnews-server.vercel.app/updateArticle/${id}`, updatedArticle, {
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Bearer ${localStorage.getItem('access-token')}`
         },
       });
 
