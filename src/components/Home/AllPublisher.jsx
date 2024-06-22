@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query'; 
 import { fetchPublishers } from '../../functions'; 
+import Aos from "aos";
+import 'aos/dist/aos.css'
+
+
 
 const AllPublisher = () => {
   const [publishers, setPublishers] = useState([]);
@@ -16,8 +20,14 @@ const AllPublisher = () => {
     }
   }, [data]);
 
+
+  useEffect(()=>{
+    Aos.init();
+  },[])
+
   return (
-    <div className="max-w-lg lg:m-20 shadow rounded-xl p-5 bg-gray-50">
+    <div  data-aos="zoom-in"
+ className="max-w-lg lg:m-20 shadow rounded-xl p-5 bg-gray-50">
       <h2 className="text-2xl font-bold mb-4">All Publishers</h2>
       <ul className="divide-y divide-gray-200">
         {publishers.map((publisher, index) => (

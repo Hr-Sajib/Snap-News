@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const MyProfile = () => {
     const [formData, setFormData] = useState({
@@ -89,8 +91,13 @@ const MyProfile = () => {
             });
     };
 
+
+    useEffect(()=>{
+        Aos.init();
+      },[])
+
     return (
-        <div className="max-w-2xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
+        <div  data-aos="fade-up" className="max-w-2xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
             <Helmet>
                  <title>SnapNews My Profile</title>
             </Helmet>
@@ -166,11 +173,11 @@ const MyProfile = () => {
 
                 <div className="mb-4">
                     <label htmlFor="subscriptionStatus" className="block text-sm font-medium mb-2">Subscription Status</label>
-                    <div className='flex gap-2 items-center'>
+                    <div  className='flex gap-2 items-center'>
                         {premium ? (
-                            <p className='bg-blue-400 p-2 text-white rounded-lg w-36 text-center'>Premium Mode</p>
+                            <p  className='bg-blue-400 p-2 text-white rounded-lg w-36 text-center'>Premium Mode</p>
                         ) : (
-                            <p className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
+                            <p  className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
                         )}
                         <Link to='/subscription' className='bg-green-200 p-2 text-gray-700 rounded-lg w-[200px] text-center'>Take New Subscription</Link>
                     </div>

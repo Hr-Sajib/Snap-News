@@ -6,6 +6,9 @@ import { PiStarFill } from "react-icons/pi";
 import axios from 'axios';
 import { AuthContext } from './AuthProvider/AuthProvider';
 import { Helmet } from 'react-helmet-async';
+import Aos from "aos";
+import 'aos/dist/aos.css'
+
 
 const Allnewsicles = () => {
     // Load news
@@ -100,12 +103,19 @@ const Allnewsicles = () => {
     }, [email]);
 
     if (isNewsLoading || isPublishersLoading) {
-        return <div>Loading...</div>;
+        return <div className='text-center'>Loading...</div>;
     }
+
+
+
+
+
+  
+
 
     return (
         showNews.length > 0 ? (
-            <div>
+            <div >
                 <Helmet>
                  <title>SnapNews All Articles</title>
                 </Helmet>
@@ -157,8 +167,13 @@ const News = ({ news, savedUser }) => {
     const isPremium = news.premium == "yes";
     const canViewDetails = !isPremium || (isPremium && savedUser?.premiumToken);
 
+
+    useEffect(()=>{
+        Aos.init();
+      },[])
+
     return (
-        <div className='p-5 flex flex-col justify-between rounded-xl bg-gray-100 lg:mb-0 mb-3 lg:h-[630px]'>
+        <div data-aos="fade-up" className='p-5 flex flex-col justify-between rounded-xl bg-gray-100 lg:mb-0 mb-3 lg:h-[630px]'>
             <img className='h-[300px] w-full rounded-2xl' src={news.image} alt="" />
             <p className='dancing-script-font text-2xl my-2'>{news.title}</p>
             <div>

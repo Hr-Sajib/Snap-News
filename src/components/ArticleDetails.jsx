@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const ArticleDetails = () => {
     const news = useLoaderData();
@@ -33,16 +35,20 @@ const ArticleDetails = () => {
         }
     }, [id]);
 
+    useEffect(()=>{
+        Aos.init();
+      },[])
+
     return (
-        <div className=' bg-gray-100'>
+        <div data-aos="fade-up" className=' bg-gray-100'>
             <div className='p-5 flex gap-5 rounded-xl justify-center items-center lg:mb-0 mb-3 '>
-            <img className='lg:h-[500px] lg:w-[600px] rounded-2xl' src={news.image} alt="" />
-            <div>
-                <p className='dancing-script-font text-2xl mb-10 lg:w-[600px]'>{news.title}</p>
-                <p className="mb-5">by <b>{news.publisher}</b></p>
+                <img  className='lg:h-[500px] lg:w-[600px] rounded-2xl' src={news.image} alt="" />
+                <div>
+                    <p className='dancing-script-font text-2xl mb-10 lg:w-[600px]'>{news.title}</p>
+                    <p className="mb-5">by <b>{news.publisher}</b></p>
+                </div>
+                
             </div>
-            
-        </div>
         <div className=" mx-auto rounded-xl p-5 my-2 lg:w-[1500px] text-xl pb-10">
             <p>{news.description}</p>
         </div>

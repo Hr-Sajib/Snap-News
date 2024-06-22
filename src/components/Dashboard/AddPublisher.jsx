@@ -1,6 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Image_Hosting_key = import.meta.env.VITE_Image_Hosting_key;
 const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_key}`;
@@ -70,8 +72,15 @@ const AddPublisher = () => {
             });
     };
 
+
+
+    useEffect(()=>{
+        Aos.init();
+      },[])
+
+
     return (
-        <div className="max-w-4xl lg:ml-[160px] mt-10 p-6 bg-blue-50 rounded-lg">
+        <div data-aos="fade-right" className="max-w-4xl lg:ml-[160px] mt-10 p-6 bg-blue-50 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Add New Publisher</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">

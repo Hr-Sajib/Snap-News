@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from './AuthProvider/AuthProvider';
 import { addDurationToTime } from '../functions';
 import { Helmet } from 'react-helmet-async';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Subscription = () => {
   const [subscriptionPeriod, setSubscriptionPeriod] = useState({ days: 0, hours: 0, minutes: 1, seconds: 0 });
@@ -58,8 +60,14 @@ const Subscription = () => {
     return '$0.00';
   };
 
+
+  useEffect(()=>{
+    Aos.init();
+  },[])
+
+
   return (
-    <div className="flex items-center p-6 mb-32 lg:mt-[80px] justify-center gap-10 border border-black rounded-xl lg:mx-[300px]">
+    <div data-aos="fade-up" className="flex items-center p-6 mb-32 lg:mt-[80px] justify-center gap-10 border border-black rounded-xl lg:mx-[300px]">
       <Helmet>
                  <title>SnapNews Subscription</title>
       </Helmet>

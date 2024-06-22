@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Sidebar = () => {
+
+    useEffect(()=>{
+        Aos.init();
+      },[])
+
+
     return (
-        <div className="w-64 h-[700px] bg-gray-800 text-white rounded-xl">
+        <div data-aos="fade-right" className="w-64 h-[700px] bg-gray-800 text-white rounded-xl">
             <ul className="p-4">
                 <li className="mb-4">
                     <NavLink 

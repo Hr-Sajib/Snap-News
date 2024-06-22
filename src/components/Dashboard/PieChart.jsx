@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const PieChart = () => {
     const [articles, setArticles] = useState([]);
@@ -60,9 +62,14 @@ const PieChart = () => {
         }
     }, [articles, publishers]);
 
+
+    useEffect(()=>{
+        Aos.init();
+      },[])
+
     return (
-        <div className="App lg:w-[1000px] lg:h-[800px] flex">
-            <div className="chart-container">
+        <div data-aos="fade-right" className="App lg:w-[1000px] lg:h-[800px] flex">
+            <div data-aos="zoom-in" className="chart-container">
                 <Chart
                     className='lg:ml-20'
                     width={'800px'}
@@ -75,7 +82,7 @@ const PieChart = () => {
                     }}
                 />
             </div>
-            <div className="chart-container">
+            <div  data-aos="zoom-in" className="chart-container ">
                 <Chart
                     width={'500px'}
                     height={'300px'}

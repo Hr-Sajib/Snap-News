@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { AuthContext } from './AuthProvider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPublishers } from '../functions';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Image_Hosting_key = import.meta.env.VITE_Image_Hosting_key;
 const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_key}`;
@@ -97,11 +99,15 @@ const UpdateArticle = () => {
     }
   };
 
+  useEffect(()=>{
+    Aos.init();
+  },[])
+
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-blue-50 rounded-lg">
+    <div data-aos="zoom-in" className="max-w-4xl mx-auto mt-10 p-6 bg-blue-50 rounded-lg">
       <h2 className="text-xl font-semibold mb-4">Update Article</h2>
       {article && (
-        <form onSubmit={handleSubmit}>
+        <form data-aos="fade-down" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">Title:</label>
             <input

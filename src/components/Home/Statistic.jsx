@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import { fetchUsers } from "../../functions";
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Statistic = () => {
     const [Users, setUsers] = useState([]);
@@ -24,8 +26,14 @@ const Statistic = () => {
     const { ref: normalUsersRef, inView: normalUsersInView } = useInView();
     const { ref: premiumUsersRef, inView: premiumUsersInView } = useInView();
 
+
+
+  useEffect(()=>{
+    Aos.init();
+  },[])
     return (
-        <div className="p-10 bg-gray-100 lg:mx-20 rounded-xl lg:my-20">
+        <div   data-aos="zoom-in"
+        className="p-10 bg-gray-100 lg:mx-20 rounded-xl lg:my-20">
             <h2 className="text-2xl font-semibold mb-6">User Statistics</h2>
             {isLoading ? (
                 <p>Loading...</p>

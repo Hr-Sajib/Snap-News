@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNews } from '../../functions';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Trending = () => {
   const [allNews, setAllNews] = useState([]);
@@ -38,8 +40,13 @@ const Trending = () => {
   };
   ;
 
+  useEffect(()=>{
+    Aos.init();
+  },[])
+
+
   return (
-<div className="lg:mx-20 border rounded-xl p-4 shadow-lg bg-gradient-to-r to-blue-400/30 from-gray-200/30">
+<div data-aos="fade-up" className="lg:mx-20 border rounded-xl p-4 shadow-lg bg-gradient-to-r to-blue-400/30 from-gray-200/30">
       <p className="text-xl font-bold mb-2 text-blue-800">Now Trending</p>
       <Slider {...sliderSettings}>
         {

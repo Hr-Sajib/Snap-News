@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import Pagination from './Pagination'; // Assuming Pagination is in the same directory
+import Aos from "aos";
+import 'aos/dist/aos.css'
+
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -20,8 +23,15 @@ const AllUsers = () => {
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(users.length / usersPerPage);
 
+
+
+  useEffect(()=>{
+    Aos.init();
+  },[])
+
+
   return (
-    <div>
+    <div data-aos="fade-right">
       <h1 className='lg:ml-20 text-2xl'>All Users</h1>
 
       <div>
@@ -79,7 +89,7 @@ const Row = ({ user, index }) => {
   };
 
   return (
-    <tr className="bg-gray-200 lg:h-20 text-center">
+    <tr data-aos="fade-down" className="bg-gray-200 lg:h-20 text-center">
       <th>{index + 1}</th>
       <td className="w-[100px] text-blue-800 text-lg text-center">
         <img className='h-12 lg:ml-2 w-12 rounded-xl' src={user.userImage} alt="" />

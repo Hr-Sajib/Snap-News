@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { fetchNews } from '../../functions';
 import Pagination from './Pagination'; // Import the Pagination component
-
+import Aos from "aos";
+import 'aos/dist/aos.css'
 const AllAdminArticles = () => {
   const [allNews, setAllNews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -164,8 +165,14 @@ const Article = ({ news, allNews, setAllNews }) => {
       });
   };
 
+
+  useEffect(()=>{
+    Aos.init();
+  },[])
+
+
   return (
-    <div className={`flex ${news.approval === 'no' ? 'bg-blue-200' : 'bg-blue-100'} p-4 rounded-xl mb-2`}>
+    <div data-aos="fade-right" className={`flex ${news.approval === 'no' ? 'bg-blue-200' : 'bg-blue-100'} p-4 rounded-xl mb-2`}>
       <img src={news.image} className="h-[300px] w-[320px] rounded-xl" alt="" />
       <div className="ml-5 mt-2">
         {news.approval === 'no' ? <p className="font-bold text-green-700">Pending Post</p> : null}

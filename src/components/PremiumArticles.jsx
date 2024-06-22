@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { PiStarFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { fetchNews } from "../functions";
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const PremiumArticles = () => {
 
@@ -22,6 +24,10 @@ const PremiumArticles = () => {
             }
         }, [newsData]);
 
+        useEffect(()=>{
+            Aos.init();
+          },[])
+
 
     return (
         <div className="lg:mx-20">
@@ -40,7 +46,7 @@ const News = ({ news }) => {
     const isPremium = news.premium == "yes";
 
     return (
-        <div className='p-5 flex justify-between rounded-xl bg-gray-100 lg:mt-5'>
+        <div  data-aos="fade-up" className='p-5 flex justify-between rounded-xl bg-gray-100 lg:mt-5'>
             <img className='lg:h-[360px] lg:w-[400px] rounded-2xl' src={news.image} alt="" />
             <div className="p-5 ">
                 <div className="flex items-center gap-1">

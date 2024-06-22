@@ -6,6 +6,8 @@ import Select from 'react-select';
 import Swal from 'sweetalert2';
 import { fetchNews, fetchPublishers, fetchUsers } from '../../functions';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import Aos from "aos";
+import 'aos/dist/aos.css'
 
 const Image_Hosting_key = import.meta.env.VITE_Image_Hosting_key;
 const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_key}`;
@@ -158,8 +160,14 @@ const AddArticle = () => {
     }
   };
 
+  useEffect(()=>{
+    Aos.init();
+  },[])
+  
+
+
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-blue-50 rounded-lg">
+    <div data-aos="fade-up" className="max-w-4xl mx-auto mt-10 p-6 bg-blue-50 rounded-lg">
             <Helmet>
                  <title>SnapNews Add Article</title>
             </Helmet>
