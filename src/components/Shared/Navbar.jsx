@@ -5,8 +5,15 @@ import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import Aos from "aos";
+import 'aos/dist/aos.css'
+
 
 const Navbar = () => {
+
+    useEffect(()=>{
+        Aos.init();
+      },[])
 
 
     const {user, logOut} = useContext(AuthContext);
@@ -98,14 +105,14 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <div>
+                <div >
                     { savedUser &&
                             <div className="lg:flex hidden px-3 gap-1">
-                                <div>
+                                <div data-aos="fade-left">
                                     <p className="font-bold text-right">{savedUser.name}</p>
                                     <p className="text-[14px] text-right">{savedUser.userEmail}</p>
                                 </div>
-                                <div className="tooltip" data-tip={user.displayName}><img className="w-12 border border-black rounded-full" src={savedUser.userImage} alt="" /></div>
+                                <div className="tooltip" data-aos="zoom-in" data-tip={user.displayName}><img className="w-12 border border-black rounded-full" src={savedUser.userImage} alt="" /></div>
 
                             </div>
                     }
