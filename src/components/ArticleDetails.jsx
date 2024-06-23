@@ -41,7 +41,7 @@ const ArticleDetails = () => {
 
     return (
         <div data-aos="fade-up" className=' bg-gray-100'>
-            <div className='p-5 flex gap-5 rounded-xl justify-center items-center lg:mb-0 mb-3 '>
+            <div className='p-5 lg:flex gap-5 rounded-xl justify-center items-center lg:mb-0 mb-3 '>
                 <img  className='lg:h-[500px] lg:w-[600px] rounded-2xl' src={news.image} alt="" />
                 <div>
                     <p className='dancing-script-font text-2xl mb-10 lg:w-[600px]'>{news.title}</p>
