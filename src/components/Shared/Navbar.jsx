@@ -17,11 +17,11 @@ const Navbar = () => {
 
     useEffect(() => {
         if (email) {
-            axios.get(`http://localhost:5500/getUser/${email}`, {
+            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     authorization: `Bearer ${localStorage.getItem('access-token')}`
-
+                    
                 },
             })
             .then(data => {
@@ -45,7 +45,6 @@ const Navbar = () => {
             console.log(error.message);
         });
     }
-
 
     const navlinks = 
         <>
@@ -100,13 +99,13 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <div>
-                    { user &&
+                    { savedUser &&
                             <div className="lg:flex hidden px-3 gap-1">
                                 <div>
-                                    <p className="font-bold text-right">{user.displayName}</p>
-                                    <p className="text-[14px] text-right">{user.email}</p>
+                                    <p className="font-bold text-right">{savedUser.name}</p>
+                                    <p className="text-[14px] text-right">{savedUser.userEmail}</p>
                                 </div>
-                                <div className="tooltip" data-tip={user.displayName}><img className="w-10 rounded-full" src={user.photoURL} alt="" /></div>
+                                <div className="tooltip" data-tip={user.displayName}><img className="w-12 border border-black rounded-full" src={savedUser.userImage} alt="" /></div>
 
                             </div>
                     }

@@ -5,7 +5,10 @@ import { AuthContext } from './AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
 import Aos from "aos";
-import 'aos/dist/aos.css'
+import 'aos/dist/aos.css';
+
+const Image_Hosting_key = import.meta.env.VITE_Image_Hosting_key;
+const Image_Hosting_API = `https://api.imgbb.com/1/upload?key=${Image_Hosting_key}`;
 
 const MyProfile = () => {
     const [formData, setFormData] = useState({
@@ -14,22 +17,24 @@ const MyProfile = () => {
         age: '',
         address: '',
         language: 'english',
-        favoriteCategories: []
+        favoriteCategories: [],
+        userImage: ''
     });
 
     const [loading, setLoading] = useState(false);
     const [premium, setPremium] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
 
     const { user } = useContext(AuthContext);
     const email = user?.email;
 
     useEffect(() => {
         if (email) {
-            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`,{
+            axios.get(`https://snapnews-server.vercel.app/getUser/${email}`, {
                 headers: {
-                  authorization: `Bearer ${localStorage.getItem('access-token')}`
+                    authorization: `Bearer ${localStorage.getItem('access-token')}`
                 },
-              })
+            })
                 .then(response => {
                     const data = response.data;
                     setFormData({
@@ -38,7 +43,8 @@ const MyProfile = () => {
                         age: data.age || '',
                         address: data.address || '',
                         language: data.language || 'english',
-                        favoriteCategories: data.favoriteCategories || []
+                        favoriteCategories: data.favoriteCategories || [],
+                        userImage: data.userImage || ''
                     });
                     setPremium(data.premiumToken);
                 })
@@ -57,21 +63,44 @@ const MyProfile = () => {
                     : prevData.favoriteCategories.filter(category => category !== value);
                 return { ...prevData, favoriteCategories: updatedCategories };
             });
+        } else if (type === 'file') {
+            setImageFile(e.target.files[0]);
         } else {
             setFormData({ ...formData, [name]: value });
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const formInputData = { ...formData };
+
+        let imageUrl = formData.userImage;
+        if (imageFile) {
+            const formData = new FormData();
+            formData.append('image', imageFile);
+
+            try {
+                const response = await axios.post(Image_Hosting_API, formData);
+                imageUrl = response.data.data.url;
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was an error uploading your image. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                setLoading(false);
+                return;
+            }
+        }
+
+        const formInputData = { ...formData, userImage: imageUrl };
 
         axios.put(`https://snapnews-server.vercel.app/updateUserInfo/${email}`, formInputData, {
             headers: {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('access-token')}`
-
             },
         })
             .then(response => {
@@ -97,15 +126,14 @@ const MyProfile = () => {
             });
     };
 
-
-    useEffect(()=>{
+    useEffect(() => {
         Aos.init();
-      },[])
+    }, []);
 
     return (
-        <div  data-aos="fade-up" className="max-w-2xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
+        <div data-aos="fade-up" className="max-w-2xl mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md">
             <Helmet>
-                 <title>SnapNews My Profile</title>
+                <title>SnapNews My Profile</title>
             </Helmet>
             <h2 className="text-2xl font-semibold mb-6">Profile Information</h2>
 
@@ -127,12 +155,24 @@ const MyProfile = () => {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="contactEmail" className="block text-sm font-medium mb-2">Contact Email</label>
+                    <label htmlFor="contactEmail" className="block text-sm font-medium mb-2">Secondary Contact Email</label>
                     <input
                         type="email"
                         id="contactEmail"
                         name="contactEmail"
                         value={formData.contactEmail}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="userImage" className="block text-sm font-medium mb-2">Profile Image</label>
+                    <input
+                        type="file"
+                        id="userImage"
+                        name="userImage"
+                        accept="image/*"
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     />
@@ -179,11 +219,11 @@ const MyProfile = () => {
 
                 <div className="mb-4">
                     <label htmlFor="subscriptionStatus" className="block text-sm font-medium mb-2">Subscription Status</label>
-                    <div  className='flex gap-2 items-center'>
+                    <div className='flex gap-2 items-center'>
                         {premium ? (
-                            <p  className='bg-blue-400 p-2 text-white rounded-lg w-36 text-center'>Premium Mode</p>
+                            <p className='bg-blue-400 p-2 text-white rounded-lg w-36 text-center'>Premium Mode</p>
                         ) : (
-                            <p  className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
+                            <p className='bg-gray-400 p-2 text-gray-200 rounded-lg w-36 text-center'>On Free Mode</p>
                         )}
                         <Link to='/subscription' className='bg-green-200 p-2 text-gray-700 rounded-lg w-[200px] text-center'>Take New Subscription</Link>
                     </div>
@@ -209,6 +249,8 @@ const MyProfile = () => {
                         ))}
                     </div>
                 </div>
+
+
 
                 <button
                     type="submit"
