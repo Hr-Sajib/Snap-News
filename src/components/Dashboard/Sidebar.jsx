@@ -11,7 +11,7 @@ const Sidebar = () => {
 
 
     return (
-        <div data-aos="fade-right" className="w-64 h-[700px] bg-gray-800 text-white rounded-xl">
+        <div data-aos="fade-right" className="lg:w-64 lg:h-[700px] h-[300px] bg-gray-800 text-white lg:text-base text-sm rounded-xl">
             <ul className="p-4">
                 <li className="mb-4">
                     <NavLink 

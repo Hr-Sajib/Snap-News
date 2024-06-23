@@ -21,7 +21,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div>
+        <div className="lg:mx-0 mx-1">
             <Helmet>
                 <title>SnapNews Home</title>
             </Helmet>

@@ -184,27 +184,27 @@ const Article = ({ news, allNews, setAllNews }) => {
 
 
   return (
-    <div data-aos="fade-right" className={`flex ${news.approval === 'no' ? 'bg-blue-200' : 'bg-blue-100'} p-4 rounded-xl mb-2`}>
-      <img src={news.image} className="h-[300px] w-[320px] rounded-xl" alt="" />
-      <div className="ml-5 mt-2">
+    <div data-aos="fade-right" className={`lg:flex ${news.approval === 'no' ? 'bg-blue-200' : 'bg-blue-100'} lg:w-auto w-[270px] lg:p-4 p-1 rounded-xl mb-2`}>
+      <img src={news.image} className="lg:h-[300px] lg:w-[320px] rounded-xl" alt="" />
+      <div className="lg:ml-5 mt-2">
         {news.approval === 'no' ? <p className="font-bold text-green-700">Pending Post</p> : null}
-        <p className="text-2xl">{news.title}</p>
-        <div className="flex gap-1 bg-white p-3 rounded-xl w-[400px] mt-3">
+        <p className="lg:text-2xl text-lg">{news.title}</p>
+        <div className="flex gap-1 bg-white p-3 rounded-xl lg:w-[400px] mt-3">
           <div className="flex gap-1">
-            <img src={news.authorImage} className="rounded-full h-16" alt="" />
-            <div className="ml-2">
-              <p className="text-xl">{news.authorName}</p>
-              <p className="text-xl">{news.authorEmail}</p>
+            <img src={news.authorImage} className="rounded-full lg:h-16" alt="" />
+            <div className="lg:ml-2">
+              <p className="lg:text-xl">{news.authorName}</p>
+              <p className="lg:text-xl">{news.authorEmail}</p>
             </div>
           </div>
         </div>
-        <p className="bg-white p-1 rounded-lg mt-1 w-[400px] pl-5">Date : {news.date}</p>
-        <p className="bg-white p-1 rounded-lg mt-1 w-[400px] pl-5">Publisher : {news.publisher}</p>
+        <p className="bg-white p-1 rounded-lg mt-1 lg:w-[400px] pl-5">Date : {news.date}</p>
+        <p className="bg-white p-1 rounded-lg mt-1 lg:w-[400px] pl-5">Publisher : {news.publisher}</p>
         <div className="flex gap-1 mt-5">
           <button
             id={`approveBtn${news._id}`}
             onClick={() => handleApprove(news._id)}
-            className={`hover:bg-green-600 text-white h-12 w-36 rounded-xl ${news.approval === 'approved' ? 'bg-gray-500' : 'bg-black'}`}
+            className={`hover:bg-green-600 text-white h-12 lg:w-36 rounded-xl ${news.approval === 'approved' ? 'bg-gray-500' : 'bg-black'}`}
           >
             {news.approval === 'approved' ? 'Approved' : 'Approve'}
           </button>
@@ -212,7 +212,7 @@ const Article = ({ news, allNews, setAllNews }) => {
           <button
             id={`declineBtn${news._id}`}
             onClick={() => handleDecline(news._id)}
-            className={`hover:bg-orange-600 text-white h-12 w-36 rounded-xl ${news.approval.slice(0, 8) === 'declined' ? 'bg-gray-500' : 'bg-black'}`}
+            className={`hover:bg-orange-600 text-white h-12 lg:w-36 rounded-xl ${news.approval.slice(0, 8) === 'declined' ? 'bg-gray-500' : 'bg-black'}`}
           >
             {news.approval.slice(0,8) === 'declined' ? 'Declined' : 'Decline'}
           </button>

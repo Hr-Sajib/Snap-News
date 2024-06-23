@@ -14,8 +14,8 @@ const Modal = ({setShowModal}) => {
       },[])
     return (
         <div className="fixed z-10 inset-0 bg-gray-700 bg-opacity-30 backdrop-blur-sm">
-            <div data-aos="zoom-in" className="bg-gradient-to-r from-gray-100 to-gray-100 lg:w-[700px] border border-black lg:h-[300px] text-center rounded-2xl p-10 mt-[300px] mx-auto">
-                <p className="text-7xl mt-5">SUBSCRIBE</p>
+            <div data-aos="zoom-in" className="bg-gradient-to-r from-gray-100 to-gray-100 lg:w-[700px] w-[300px] border border-black lg:h-[300px] text-center rounded-2xl lg:p-10 p-4 mt-[300px] mx-auto">
+                <p className="lg:text-7xl text-3xl mt-5">SUBSCRIBE</p>
                 <p>For Greater Experience</p>
                 <div className="flex gap-1 justify-center mt-5">
                     <button onClick={handleClose} className="btn border-0 bg-black text-gray-200 hover:text-black">Close</button>

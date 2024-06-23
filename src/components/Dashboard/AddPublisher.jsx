@@ -82,7 +82,7 @@ const AddPublisher = () => {
 
 
     return (
-        <div data-aos="fade-right" className="max-w-4xl lg:ml-[160px] mt-10 p-6 bg-blue-50 rounded-lg">
+        <div data-aos="fade-right" className="max-w-4xl lg:ml-[160px] lg:mt-10 lg:p-6 p-2 bg-blue-50 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Add New Publisher</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">

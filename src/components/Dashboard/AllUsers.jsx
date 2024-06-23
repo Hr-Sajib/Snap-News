@@ -92,12 +92,12 @@ const Row = ({ user, index }) => {
   return (
     <tr data-aos="fade-down" className="bg-gray-200 lg:h-20 text-center">
       <th>{index + 1}</th>
-      <td className="w-[100px] text-blue-800 text-lg text-center">
-        <img className='h-12 lg:ml-2 w-12 rounded-xl' src={user.userImage} alt="" />
+      <td className="lg:w-[100px] text-blue-800 text-lg text-center border border-black">
+        <img className='lg:h-12 h-8 lg:ml-2 lg:w-12 w-8 rounded-xl' src={user.userImage} alt="" />
       </td>
-      <td className="w-[400px] text-blue-800 text-lg text-center">{user.name}</td>
-      <td className="w-[400px] text-blue-800 text-lg text-left">{user.userEmail}</td>
-      <td className="w-[400px] text-blue-800 text-lg text-center">
+      <td className="lg:w-[400px] text-blue-800 text-lg text-center">{user.name}</td>
+      <td className="lg:w-[400px] text-blue-800 text-lg text-left">{user.userEmail}</td>
+      <td className="lg:w-[400px] text-blue-800 text-lg text-center">
         {
           user.role === 'admin' ?
             <p className='bg-gray-500 p-2 rounded-lg text-white lg:w-[200px] mx-auto'>Admin</p> :

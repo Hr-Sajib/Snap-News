@@ -21,9 +21,8 @@ const Plans = () => {
   },[])
 
   return (
-    <div  data-aos="zoom-in"
- className="flex justify-center gap-20 mt-10">
-      <div className="border lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
+    <div  data-aos="zoom-in" className="lg:flex justify-center gap-20 mt-10 lg:mb-0 mb-10">
+      <div className="border lg:mx-0 mx-auto lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg lg:mb-0 mb-4">
         <div className="mb-4 text-center">
           <p className="bg-pink-200 text-pink-800 py-1 px-2 rounded-full inline-block mb-2">Free For 1 Month</p>
           <h3 className="text-xl font-bold">Premium Individual</h3>
@@ -42,7 +41,7 @@ const Plans = () => {
         </p>
       </div>
 
-      <div className="border lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
+      <div className="border mx-auto lg:mx-0 lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg lg:mb-0 mb-4">
         <div className="mb-4 text-center">
           <h3 className="text-xl font-bold">Premium Duo</h3>
           <p className="text-lg font-semibold mt-2">$14.99</p>
@@ -60,7 +59,7 @@ const Plans = () => {
         </p>
       </div>
 
-      <div className="border lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
+      <div className="border mx-auto lg:mx-0 lg:h-[420px] bg-blue-50 flex flex-col justify-between rounded-lg p-6 w-80 hover:bg-white shadow-lg">
         <div className="mb-4 text-center">
           <h3 className="text-xl font-bold">Premium Family</h3>
           <p className="text-lg font-semibold mt-2">$16.99</p>

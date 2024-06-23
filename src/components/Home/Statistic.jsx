@@ -33,7 +33,7 @@ const Statistic = () => {
   },[])
     return (
         <div   data-aos="zoom-in"
-        className="p-10 bg-gray-100 lg:mx-20 rounded-xl lg:my-20">
+        className="p-10 bg-gray-100 lg:mx-20 rounded-xl lg:my-20 lg:mb-0 mb-10">
             <h2 className="text-2xl font-semibold mb-6">User Statistics</h2>
             {isLoading ? (
                 <p>Loading...</p>

@@ -68,19 +68,23 @@ const PieChart = () => {
       },[])
 
     return (
-        <div data-aos="fade-right" className="App lg:w-[1000px] lg:h-[800px] flex">
+        <div data-aos="fade-right" className="App lg:w-[1000px] w-[600px] lg:h-[800px] lg:flex">
             <div data-aos="zoom-in" className="chart-container">
-                <Chart
-                    className='lg:ml-20'
-                    width={'800px'}
-                    height={'800px'}
-                    chartType="PieChart"
-                    loader={<div>Loading Chart</div>}
-                    data={pieChartData}
-                    options={{
-                        title: 'Articles by Publisher',
-                    }}
-                />
+            <Chart
+                width={'100%'}
+                height={'100%'}
+                chartType="PieChart"
+                loader={<div>Loading Chart</div>}
+                data={pieChartData}
+                options={{
+                    title: 'Articles by Publisher',
+                    chartArea: {
+                    width: '100%',
+                    height: '100%',
+                    },
+                }}
+             />
+
             </div>
             <div  data-aos="zoom-in" className="chart-container ">
                 <Chart

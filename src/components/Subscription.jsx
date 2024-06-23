@@ -68,11 +68,11 @@ const Subscription = () => {
 
 
   return (
-    <div data-aos="fade-up" className="flex items-center p-6 mb-32 lg:mt-[80px] justify-center gap-10 border border-black rounded-xl lg:mx-[300px]">
+    <div data-aos="fade-up" className="lg:flex items-center p-6 mb-32 lg:mt-[80px] justify-center gap-10 lg:border border-black rounded-xl lg:mx-[300px]">
       <Helmet>
                  <title>SnapNews Subscription</title>
       </Helmet>
-      <img className="lg:h-[300px] rounded-xl" src="https://i.ibb.co/n3K7KQ2/sub.png" alt="Subscribe Banner" />
+      <img className="lg:h-[300px] rounded-xl lg:mb-0 mb-5" src="https://i.ibb.co/n3K7KQ2/sub.png" alt="Subscribe Banner" />
       <div className="w-full border max-w-md bg-white p-6 rounded-xl shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Choose Your Subscription Plan</h2>
         <div className="mb-4">

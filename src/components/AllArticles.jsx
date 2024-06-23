@@ -118,11 +118,11 @@ const Allnewsicles = () => {
                 <Helmet>
                  <title>SnapNews All Articles</title>
                 </Helmet>
-                <div className='h-20 mx-24 rounded-xl flex items-center justify-between'>
-                    <div className='ml-3'>
+                <div className='h-20 lg:mx-24 mx-1 rounded-xl lg:flex items-center justify-between'>
+                    <div className='lg:ml-3'>
                         <form onSubmit={handleFilter}>
                             <div className="flex">
-                                <select name="publisher" className='h-12 mt-2 bg-black text-white mb-3 rounded-l-lg p-3'>
+                                <select name="publisher" className='h-12 mt-2 bg-black text-white mb-3 rounded-l-lg lg:p-3 p-1'>
                                     <option value="">Choose Publisher</option>
                                     {
                                         allPublishers.map(pub => (
@@ -130,22 +130,22 @@ const Allnewsicles = () => {
                                         ))
                                     }
                                 </select>
-                                <select name="tag" className='h-12 mt-2 bg-black text-white mb-3 p-3'>
+                                <select name="tag" className='h-12 mt-2 bg-black text-white mb-3 lg:p-3 p-1'>
                                     <option value="">Choose Tags</option>
                                     {Array.from(new Set(allNews.flatMap(news => news.tags))).map(tag => (
                                         <option key={tag} value={tag}>{tag}</option>
                                     ))}
                                 </select>
-                                <input className="h-12 mt-2 bg-black mb-3 rounded-r-lg text-white w-32 p-3" type="submit" value="Filter" />
+                                <input className="h-12 mt-2 bg-black mb-3 rounded-r-lg text-white lg:w-32 p-3" type="submit" value="Filter" />
                             </div>
                         </form>
                     </div>
-                    <form onSubmit={handleSearch}>
+                    <form onSubmit={handleSearch} className="flex">
                         <input type="text" name="searchText" className='border border-black h-12 w-[400px] rounded-lg px-3' />
                         <input type="submit" value="Search" className='relative right-[10px] text-white bg-black h-12 w-32 rounded-r-lg' />
                     </form>
                 </div>
-                <div className='lg:grid grid-cols-4 lg:mx-20 items-center justify-center p-3 gap-3'>
+                <div className='lg:grid grid-cols-4 lg:mx-20 items-center justify-center lg:mt-0 mt-10 p-3 gap-3'>
                     {
                         showNews.map(news => <News key={news._id} news={news} savedUser={savedUser} />)
                     }

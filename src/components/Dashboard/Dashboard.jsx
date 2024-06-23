@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet-async';
 
 const Dashboard = () => {
     return (
-        <div className="flex mx-20">
+        <div className="flex lg:mx-20">
             <Helmet>
                  <title>SnapNews Admin</title>
             </Helmet>

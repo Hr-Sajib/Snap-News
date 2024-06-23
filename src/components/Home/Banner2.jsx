@@ -10,12 +10,12 @@ const Banner2 = () => {
         Aos.init();
       },[])
     return (
-        <div data-aos="fade-down" className=" h-[800px]">
+        <div data-aos="fade-down" className="lg:h-[800px] h-[200px] border">
             <img className="mx-auto lg:h-[760px] rounded-xl" src="https://i.ibb.co/T4Cfpzp/banner2.jpg" alt="" />
-            <div className="relative lg:left-[300px] lg:bottom-[600px]">
-                <p className="text-gray-300 lg:text-[120px]">ALL NEWS</p>
+            <div className="relative lg:left-[300px] left-[10px] lg:bottom-[600px] bottom-[140px]">
+                <p className="text-gray-300 lg:text-[120px] text-[25px]">ALL NEWS</p>
                 <p className="text-gray-300 lg:text-[80px]">Under Your </p>
-                <p className="text-gray-300 lg:text-[120px]">FINGERTIPS</p>
+                <p className="text-gray-300 lg:text-[120px] text-[25px]">FINGERTIPS</p>
 
             </div>
         </div>

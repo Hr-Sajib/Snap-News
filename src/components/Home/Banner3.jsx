@@ -13,24 +13,24 @@ const Banner3 = () => {
         Aos.init();
       },[])
     return (
-        <div data-aos="fade-down" className="h-[900px]">
+        <div data-aos="fade-down" className="lg:h-[900px] h-[230px]">
             <img className='mx-auto rounded-xl' src="https://i.ibb.co/2FCKYqY/banner3.jpg" alt="Banner" />
-            <div className='flex gap-[200px]'>
-                <ul className='list-disc ml-5 text-5xl relative left-[300px] bottom-[600px] text-white'>
-                    <li className='bg-gray-500 p-5 rounded-t-2xl'>Top Stories</li>
-                    <li className='bg-gray-500 p-5'>World News</li>
-                    <li className='bg-gray-500 p-5'>National News</li>
-                    <li className='bg-gray-500 p-5'>Local News</li>
-                    <li className='bg-gray-500 p-5 rounded-b-2xl'>Business</li>
+            <div className='flex lg:gap-[200px] gap-5'>
+                <ul className='list-disc lg:ml-5 lg:text-5xl relative lg:left-[300px] left-[25px] lg:bottom-[600px] bottom-[180px] text-white'>
+                    <li className='bg-gray-500 lg:p-5 p-1 rounded-t-2xl'>Top Stories</li>
+                    <li className='bg-gray-500 lg:p-5 p-1'>World News</li>
+                    <li className='bg-gray-500 lg:p-5 p-1'>National News</li>
+                    <li className='bg-gray-500 lg:p-5 p-1'>Local News</li>
+                    <li className='bg-gray-500 lg:p-5 p-1 rounded-b-2xl'>Business</li>
             
                 </ul>
-                <ul className='list-disc ml-5 text-5xl relative left-[300px] bottom-[600px] text-white'>
+                <ul className='list-disc lg:ml-5 lg:text-5xl relative lg:left-[300px] left-[30px] lg:bottom-[600px] bottom-[180px] text-white'>
                    
-                    <li className='bg-gray-500 p-5 rounded-t-2xl'>Technology</li>
-                    <li className='bg-gray-500 p-5'>Entertainment</li>
-                    <li className='bg-gray-500 p-5'>Sports</li>
-                    <li className='bg-gray-500 p-5'>Health</li>
-                    <li className='bg-gray-500 p-5 rounded-b-2xl'>Lifestyle</li>
+                    <li className='bg-gray-500 lg:p-5 p-1 rounded-t-2xl'>Technology</li>
+                    <li className='bg-gray-500 lg:p-5 p-1'>Entertainment</li>
+                    <li className='bg-gray-500 lg:p-5 p-1'>Sports</li>
+                    <li className='bg-gray-500 lg:p-5 p-1'>Health</li>
+                    <li className='bg-gray-500 lg:p-5 p-1 rounded-b-2xl'>Lifestyle</li>
                 </ul>
             </div>
         </div>
