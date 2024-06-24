@@ -192,7 +192,7 @@ const Login = () => {
                   placeholder='Password' 
                   required/> <br />
                 
-                <div onClick={()=>setPasswordShow(!passwordShow)} className='w-5 flex justify-end relative lg:left-[460px] left-[280px] lg:bottom-[27px] bottom-[35px]'>
+                <div onClick={()=>setPasswordShow(!passwordShow)} className='w-5 flex justify-end relative lg:left-[460px] left-[280px] lg:bottom-[27px] bottom-[28px]'>
                     { passwordShow ? <LuEyeOff/> : <LuEye/> }
                 </div>          
                 

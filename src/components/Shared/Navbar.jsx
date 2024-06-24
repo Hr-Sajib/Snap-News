@@ -112,13 +112,16 @@ const Navbar = () => {
                                     <p className="font-bold text-right">{savedUser.name}</p>
                                     <p className="text-[14px] text-right">{savedUser.userEmail}</p>
                                 </div>
-                                <div className="tooltip" data-aos="zoom-in" data-tip={user.displayName}><img className="w-12 border border-black rounded-full" src={savedUser.userImage} alt="" /></div>
+                                <div className="tooltip" data-aos="zoom-in" data-tip={savedUser.name}><img className="w-12 border border-black rounded-full" src={savedUser.userImage} alt="" /></div>
 
                             </div>
                     }
                 </div>
                 
-                { user ? <button onClick={handleLogOut} className="bg-black text-white px-3 py-2 rounded-lg">Logout</button> :
+                { savedUser ? <div className='flex gap-1'>
+                    <button onClick={handleLogOut} className="bg-black text-white px-3 py-2 rounded-lg">Logout</button>
+                    <img className="w-10 lg:hidden border border-black rounded-full" src={savedUser.userImage} alt="" />
+                </div> :
                      
                         <div className='flex'>
                             <Link to="/login"><button className="bg-black text-white px-3 py-2 rounded-lg mr-1">Login</button></Link>
